@@ -39,8 +39,6 @@ export default function AALaporan({ navigation, route }) {
         listrik: 0,
         atk: 0,
         lainnya: 0,
-
-
     });
 
     // setLoading(false);

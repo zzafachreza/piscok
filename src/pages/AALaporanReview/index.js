@@ -79,8 +79,7 @@ export default function AALaporanReview({ navigation, route }) {
 
     // setLoading(false);
 
-    const sendServer = () => {
-        setLoading(true);
+    useEffect(() => {
         setKirim({
             ...kirim,
             jumlah: add.jumlah,
@@ -88,32 +87,32 @@ export default function AALaporanReview({ navigation, route }) {
             total_beli: add.total_beli,
             setoran: add.total_jual - add.total_beli
         });
+    }, [])
+
+    const sendServer = () => {
+        setLoading(true);
+
 
         setTimeout(() => {
-
+            console.log('send server', kirim)
             axios.post(apiURL + 'laporan_add', kirim).then(res => {
 
                 console.log(res.data);
                 if (res.data.status == 200) {
-                    // setLoading(false);
+                    setLoading(false);
+                    setKirim({})
                     Alert.alert(MYAPP, 'Laporan tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY') + ' berhasil di simpan !');
                     navigation.replace('Home');
                 }
             })
-        }, 1000)
+        }, 1200)
 
         // navigation.navigate('AALaporanReview', kirim)
 
 
     }
 
-    const [region, setRegion] = useState([]);
 
-    useEffect(() => {
-
-
-
-    }, [])
 
     return (
         <SafeAreaView style={{
