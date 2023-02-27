@@ -80,7 +80,7 @@ export default function AALaporanReview({ navigation, route }) {
     // setLoading(false);
 
     const sendServer = () => {
-
+        setLoading(true);
         setKirim({
             ...kirim,
             jumlah: add.jumlah,
@@ -90,20 +90,21 @@ export default function AALaporanReview({ navigation, route }) {
         });
 
         setTimeout(() => {
-            console.log('kirim server: ', kirim);
+
+            axios.post(apiURL + 'laporan_add', kirim).then(res => {
+
+                console.log(res.data);
+                if (res.data.status == 200) {
+                    // setLoading(false);
+                    Alert.alert(MYAPP, 'Laporan tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY') + ' berhasil di simpan !');
+                    navigation.replace('Home');
+                }
+            })
         }, 1000)
 
         // navigation.navigate('AALaporanReview', kirim)
 
-        // axios.post(apiURL + 'laporan_add', kirim).then(res => {
-        //     setLoading(true);
-        //     console.log(res.data);
-        //     if (res.data.status == 200) {
-        //         // setLoading(false);
-        //         Alert.alert(MYAPP, 'Laporan tanggal' + moment(kirim.tanggal).format('DD/MM/YYYY') + ' berhasil di simpan !');
-        //         navigation.replace('Home');
-        //     }
-        // })
+
     }
 
     const [region, setRegion] = useState([]);

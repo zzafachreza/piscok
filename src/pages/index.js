@@ -31,6 +31,8 @@ import Pengguna from './Pengguna';
 import PenggunaAdd from './PenggunaAdd';
 import PenggunaEdit from './PenggunaEdit';
 import AALaporanReview from './AALaporanReview';
+import AAPermintaan from './AAPermintaan';
+import AACekLaporan from './AACekLaporan';
 
 // NEW
 
@@ -84,6 +86,8 @@ export {
   Pengguna,
   PenggunaAdd,
   PenggunaEdit,
-  AALaporanReview
+  AALaporanReview,
+  AAPermintaan,
+  AACekLaporan
 
 };

@@ -35,6 +35,8 @@ import {
   PenggunaAdd,
   Pengguna,
   AALaporanReview,
+  AAPermintaan,
+  AACekLaporan,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -119,6 +121,9 @@ export default function Router() {
 
 
 
+
+
+
       <Stack.Screen
         name="AALaporanReview"
         component={AALaporanReview}
@@ -132,6 +137,32 @@ export default function Router() {
         }}
       />
 
+
+      <Stack.Screen
+        name="AAPermintaan"
+        component={AAPermintaan}
+        options={{
+          headerShown: true,
+          headerTitle: 'PERMINTAAN BAHAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AACekLaporan"
+        component={AACekLaporan}
+        options={{
+          headerShown: true,
+          headerTitle: 'CEK LAPORAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
 
       <Stack.Screen
         name="Pengguna"

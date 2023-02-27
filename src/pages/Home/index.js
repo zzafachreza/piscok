@@ -219,8 +219,8 @@ export default function Home({ navigation }) {
           justifyContent: 'center',
         }}>
           <MyMenu onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A3.png')} judul="LAPORAN" desc="Input data laporan" />
-          <MyMenu onPress={() => navigation.navigate('AASetor', user)} img={require('../../assets/A4.png')} judul="PERMINTAAN BAHAN" desc="Input permintaan bahan" />
-          <MyMenu onPress={() => navigation.navigate('Account')} img={require('../../assets/A1.png')} judul="CEK LAPORAN" desc="Cek data laporan" />
+          <MyMenu onPress={() => navigation.navigate('AAPermintaan', user)} img={require('../../assets/A4.png')} judul="PERMINTAAN BAHAN" desc="Input permintaan bahan" />
+          <MyMenu onPress={() => navigation.navigate('AACekLaporan', user)} img={require('../../assets/A1.png')} judul="CEK LAPORAN" desc="Cek data laporan" />
         </View>
       }
 
