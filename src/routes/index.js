@@ -37,6 +37,7 @@ import {
   AALaporanReview,
   AAPermintaan,
   AACekLaporan,
+  AAPermintaanCek,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -157,6 +158,19 @@ export default function Router() {
         options={{
           headerShown: true,
           headerTitle: 'CEK LAPORAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AAPermintaanCek"
+        component={AAPermintaanCek}
+        options={{
+          headerShown: true,
+          headerTitle: 'PERMINTAAN OUTLET',
           headerStyle: {
             backgroundColor: colors.primary,
           },

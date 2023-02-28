@@ -230,7 +230,7 @@ export default function Home({ navigation }) {
           flex: 1,
           justifyContent: 'center',
         }}>
-          <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A1.png')} judul="PERMINTAAN OUTLET" />
+          <MyMenu2 onPress={() => navigation.navigate('AAPermintaanCek', user)} img={require('../../assets/A1.png')} judul="PERMINTAAN OUTLET" />
           <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A2.png')} judul="LAPORAN OUTLET" />
           <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A3.png')} judul="PENGELUARAN OFFICE" />
           <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A4.png')} judul="LAPORAN KEUANGAN" />

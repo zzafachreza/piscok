@@ -159,7 +159,7 @@ export default function AACekLaporan({ navigation, route }) {
                             <Text style={{
                                 fontFamily: fonts.secondary[600],
                                 color: colors.white
-                            }}>CEK</Text>
+                            }}>SET TANGGAL</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
