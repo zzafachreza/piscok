@@ -15,52 +15,28 @@ import {
 } from "react-native-format-currency";
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
+import 'moment/locale/id'
 import MyInput2 from '../../components/MyInput2';
 
 
 const MyList = ({ l, v, judul = false }) => {
     return (
-        <View style={{
-            flexDirection: 'row',
-            padding: 3,
-            marginVertical: 1,
-            borderBottomWidth: 1,
-            borderBottomColor: colors.zavalabs
-        }}>
-            <Text style={{
-                fontFamily: fonts.secondary[600],
-                fontSize: 14,
-                color: judul ? colors.danger : colors.black,
-                flex: 1,
-            }}>{l}</Text>
-            <Text style={{
-                flex: 0.1,
-                fontFamily: fonts.secondary[600],
-                fontSize: 14
-            }}>:</Text>
-            <Text style={{
-                flex: 1,
-                textAlign: judul ? 'center' : 'left',
-                fontFamily: judul ? fonts.secondary[600] : fonts.secondary[400],
-                fontSize: 15,
-                color: judul ? colors.danger : colors.black,
-            }}>{v}</Text>
+        <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
+            <Text style={styles.judulFooterTotal}>{l}</Text>
+            <Text style={styles.judulFooterIsi}>{v}</Text>
         </View>
     )
 }
 
 
-export default function AACekLaporan({ navigation, route }) {
+export default function AALaporanKeuanganDetail({ navigation, route }) {
 
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const [total, setTotal] = useState({});
 
     const [kirim, setKirim] = useState({
-        cabang: route.params.cabang,
         tanggal: moment().format('YYYY-MM-DD'),
-
-
-
     });
 
     // setLoading(false);
@@ -72,9 +48,9 @@ export default function AACekLaporan({ navigation, route }) {
 
         setTimeout(() => {
 
-            axios.post(apiURL + 'laporan_cek', kirim).then(res => {
+            axios.post(apiURL + 'keuangan_detail', kirim).then(res => {
                 console.log(res.data);
-                if (res.data.data == null) {
+                if (res.data == null) {
                     setLoading(false);
                     setOpen(false);
                     Alert.alert(MYAPP, 'Tidak ada laporan di tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY'))
@@ -102,12 +78,6 @@ export default function AACekLaporan({ navigation, route }) {
 
             <ScrollView showsVerticalScrollIndicator={false}>
 
-                <Text style={{
-                    textAlign: 'center',
-                    fontFamily: fonts.secondary[600],
-                    marginBottom: 10,
-                    fontSize: 18,
-                }}>CABANG [ {route.params.cabang} ]</Text>
 
                 <View style={{
                     flexDirection: 'row'
@@ -120,7 +90,7 @@ export default function AACekLaporan({ navigation, route }) {
                             date={kirim.tanggal}
                             mode="date"
                             placeholder="Silahkan pilih tanggal"
-                            format="YYYY-MM-DD"
+                            format="YYYY-MM"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             customStyles={{
@@ -159,51 +129,52 @@ export default function AACekLaporan({ navigation, route }) {
                             <Text style={{
                                 fontFamily: fonts.secondary[600],
                                 color: colors.white
-                            }}>SET TANGGAL</Text>
+                            }}>SET TAHUN DAN BULAN</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
 
                 {/* result() */}
-                <Text></Text>
+
+
+
+
+
+
+
+
+
                 {open && <View>
-                    <Text style={{
-                        marginTop: 10,
-                        fontFamily: fonts.secondary[600],
-                        fontSize: 17,
-                        color: colors.primary,
-                        textAlign: 'right'
-                    }}>{moment(data.tanggal).format('DD/MMM/YYYY')}</Text>
-                    <MyList l='TOTAL STOCK' v={data.total_stock} />
-                    <MyList l='DITARIK' v={data.ditarik} />
-                    <MyList l='SISA MENTAH' v={data.sisa_mentah} />
-                    <MyList l='SISA MATENG' v={data.sisa_mateng} />
+
+                    <View style={{ flex: 1, marginTop: 5, flexDirection: 'row', backgroundColor: colors.border, }}>
+                        <Text style={styles.judulFooterTotal}>ITEM</Text>
+                        <Text style={styles.judulFooterTotal}>BULAN INI</Text>
+                    </View>
+
+                    <MyList l="MINYAK" v={'Rp' + new Intl.NumberFormat().format(data.minyak)} />
+                    <MyList l="COKELAT" v={'Rp' + new Intl.NumberFormat().format(data.cokelat)} />
+                    <MyList l="PISANG" v={'Rp' + new Intl.NumberFormat().format(data.pisang)} />
+                    <MyList l="LUMPIA" v={'Rp' + new Intl.NumberFormat().format(data.lumpia)} />
+                    <MyList l="MIKA" v={'Rp' + new Intl.NumberFormat().format(data.mika)} />
+                    <MyList l="PLASTIK" v={'Rp' + new Intl.NumberFormat().format(data.plastik)} />
+                    <MyList l="KOTAK" v={'Rp' + new Intl.NumberFormat().format(data.kotak)} />
+                    <MyList l="SEWA" v={'Rp' + new Intl.NumberFormat().format(data.sewa)} />
+                    <MyList l="DONASI" v={'Rp' + new Intl.NumberFormat().format(data.donasi)} />
+                    <MyList l="IKLAN" v={'Rp' + new Intl.NumberFormat().format(data.iklan)} />
+                    <MyList l="REWARD" v={'Rp' + new Intl.NumberFormat().format(data.reward)} />
+                    <MyList l="PERALATAN" v={'Rp' + new Intl.NumberFormat().format(data.peralatan)} />
+                    <MyList l="PERLENGKAPAN" v={'Rp' + new Intl.NumberFormat().format(data.perlengkapan)} />
+                    <MyList l="GAJI" v={'Rp' + new Intl.NumberFormat().format(data.gaji)} />
+                    <MyList l="LAINNYA" v={'Rp' + new Intl.NumberFormat().format(data.lainnya)} />
 
 
 
-                    <MyList l='JUMLAH' judul v={new Intl.NumberFormat().format(data.jumlah) + ' PCS'} />
-                    <MyList l='PENJUALAN KOTOR' judul v={new Intl.NumberFormat().format(data.penjualan_kotor)} />
 
-                    <MyGap jarak={20} />
-                    <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(data.qris * 3500)} />
-                    <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(data.grab_gojek * 3500)} />
-                    <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(data.reseller * 3000)} />
-                    <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(data.penjualan_nontunai)} />
-                    <MyGap jarak={20} />
-                    <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(data.penjualan_tunai)} />
-                    <MyGap jarak={20} />
-                    {data.minyak > 0 && <MyList l='PEMBELIAN MINYAK' v={new Intl.NumberFormat().format(data.minyak)} />}
-                    {data.tisu > 0 && <MyList l='PEMBELIAN TISU' v={new Intl.NumberFormat().format(data.tisu)} />}
-                    {data.gas > 0 && <MyList l='PEMBELIAN GAS' v={new Intl.NumberFormat().format(data.gas)} />}
-                    {data.sewa > 0 && <MyList l='PEMBELIAN SEWA' v={new Intl.NumberFormat().format(data.sewa)} />}
-                    {data.listrik > 0 && <MyList l='PEMBELIAN LISTRIK' v={new Intl.NumberFormat().format(data.listrik)} />}
-                    {data.atk > 0 && <MyList l='PEMBELIAN ATK' v={new Intl.NumberFormat().format(data.atk)} />}
-                    {data.lainnya > 0 && <MyList l='PEMBELIAN LAINNYA' v={new Intl.NumberFormat().format(data.lainnya)} />}
-                    <MyList judul l='PEMBELIAN OUTLET' v={new Intl.NumberFormat().format(data.pembelian_outlet)} />
-
-                    <MyGap jarak={20} />
-                    <MyList judul l='SETORAN OUTLET' v={new Intl.NumberFormat().format(data.setoran_outlet)} />
                 </View>}
+
+
+
+
             </ScrollView>
 
             <MyGap jarak={20} />
@@ -215,4 +186,60 @@ export default function AACekLaporan({ navigation, route }) {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    judul: {
+        flex: 1,
+        backgroundColor: colors.primary,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.white,
+        fontFamily: fonts.secondary[600],
+        fontSize: 7,
+        textAlign: 'center'
+    },
+    judulFooterIsi: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.black,
+        fontFamily: fonts.secondary[600],
+        fontSize: 11,
+        textAlign: 'center'
+    },
+    judulFooterTotal: {
+        flex: 1,
+        backgroundColor: colors.primary,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.white,
+        fontFamily: fonts.secondary[600],
+        fontSize: 11,
+        textAlign: 'center'
+    },
+    judulFooter: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.black,
+        fontFamily: fonts.secondary[600],
+        fontSize: 10,
+        textAlign: 'center'
+    },
+    isi: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.primary,
+        fontFamily: fonts.secondary[400],
+        fontSize: 10,
+        textAlign: 'center'
+    }
+})

@@ -49,24 +49,28 @@ const MyList = ({ l, v, judul = false }) => {
     )
 }
 
-export default function AALaporanReview({ navigation, route }) {
+export default function AAPengeluaranReview({ navigation, route }) {
 
     const [loading, setLoading] = useState(false);
 
 
     const [kirim, setKirim] = useState(route.params);
     const [add, setAdd] = useState({
-        jumlah: parseFloat(route.params.total_stock) - (
-            parseFloat(route.params.ditarik) +
-            parseFloat(route.params.sisa_mentah) +
-            parseFloat(route.params.sisa_mateng)),
-        total_beli: (parseFloat(route.params.minyak) +
-            parseFloat(route.params.tisu) +
-            parseFloat(route.params.gas) +
-            parseFloat(route.params.sewa) +
-            parseFloat(route.params.listrik) +
-            parseFloat(route.params.atk) +
-            parseFloat(route.params.lainnya)),
+        pembelian_total: parseFloat(kirim.minyak) +
+            parseFloat(kirim.cokelat) +
+            parseFloat(kirim.pisang) +
+            parseFloat(kirim.lumpia) +
+            parseFloat(kirim.mika) +
+            parseFloat(kirim.plastik) +
+            parseFloat(kirim.kotak) +
+            parseFloat(kirim.sewa) +
+            parseFloat(kirim.donasi) +
+            parseFloat(kirim.iklan) +
+            parseFloat(kirim.reward) +
+            parseFloat(kirim.peralatan) +
+            parseFloat(kirim.perlengkapan) +
+            parseFloat(kirim.gaji) +
+            parseFloat(kirim.lainnya),
     })
 
     // setLoading(false);
@@ -74,31 +78,23 @@ export default function AALaporanReview({ navigation, route }) {
     useEffect(() => {
         setKirim({
             ...kirim,
-            jumlah: parseFloat(route.params.total_stock) - (
-                parseFloat(route.params.ditarik) +
-                parseFloat(route.params.sisa_mentah) +
-                parseFloat(route.params.sisa_mateng)),
-            penjualan_kotor: add.jumlah * 3500,
-            penjualan_nontunai: (kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000),
-            penjualan_tunai: (add.jumlah * 3500) - ((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000)),
-            pembelian_outlet: add.total_beli,
-            setoran_outlet: ((add.jumlah * 3500) - ((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000))) - add.total_beli
+            pembelian_total: add.pembelian_total
         });
     }, [])
 
     const sendServer = () => {
-        // setLoading(true);
+        setLoading(true);
 
 
         setTimeout(() => {
             console.log('send server', kirim)
-            axios.post(apiURL + 'laporan_add', kirim).then(res => {
+            axios.post(apiURL + 'pengeluaran_add', kirim).then(res => {
 
                 console.log(res.data);
                 if (res.data.status == 200) {
                     setLoading(false);
                     setKirim({})
-                    Alert.alert(MYAPP, 'Laporan tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY') + ' berhasil di simpan !');
+                    Alert.alert(MYAPP, 'Pengeluaran Office tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY') + ' berhasil di simpan !');
                     navigation.replace('Home');
                 }
             })
@@ -127,35 +123,26 @@ export default function AALaporanReview({ navigation, route }) {
                     color: colors.primary,
                     textAlign: 'right'
                 }}>{moment(kirim.tanggal).format('DD/MMM/YYYY')}</Text>
-                <MyList l='TOTAL STOCK' v={kirim.total_stock} />
-                <MyList l='DITARIK' v={kirim.ditarik} />
-                <MyList l='SISA MENTAH' v={kirim.sisa_mentah} />
-                <MyList l='SISA MATENG' v={kirim.sisa_mateng} />
 
-
-
-                <MyList l='JUMLAH' judul v={new Intl.NumberFormat().format(kirim.jumlah) + ' PCS'} />
-                <MyList l='PENJUALAN KOTOR' judul v={new Intl.NumberFormat().format(kirim.penjualan_kotor)} />
-
+                {kirim.minyak > 0 && <MyList v={new Intl.NumberFormat().format(kirim.minyak)} l='MINYAK' />}
+                {kirim.cokelat > 0 && <MyList v={new Intl.NumberFormat().format(kirim.cokelat)} l='COKELAT' />}
+                {kirim.pisang > 0 && <MyList v={new Intl.NumberFormat().format(kirim.pisang)} l='PISANG' />}
+                {kirim.lumpia > 0 && <MyList v={new Intl.NumberFormat().format(kirim.lumpia)} l='LUMPIA' />}
+                {kirim.mika > 0 && <MyList v={new Intl.NumberFormat().format(kirim.mika)} l='MIKA' />}
+                {kirim.plastik > 0 && <MyList v={new Intl.NumberFormat().format(kirim.plastik)} l='PLASTIK' />}
+                {kirim.kotak > 0 && <MyList v={new Intl.NumberFormat().format(kirim.kotak)} l='KOTAK' />}
+                {kirim.sewa > 0 && <MyList v={new Intl.NumberFormat().format(kirim.sewa)} l='SEWA' />}
+                {kirim.donasi > 0 && <MyList v={new Intl.NumberFormat().format(kirim.donasi)} l='DONASI' />}
+                {kirim.iklan > 0 && <MyList v={new Intl.NumberFormat().format(kirim.iklan)} l='IKLAN' />}
+                {kirim.reward > 0 && <MyList v={new Intl.NumberFormat().format(kirim.reward)} l='REWARD' />}
+                {kirim.peralatan > 0 && <MyList v={new Intl.NumberFormat().format(kirim.peralatan)} l='PERALATAN' />}
+                {kirim.perlengkapan > 0 && <MyList v={new Intl.NumberFormat().format(kirim.perlengkapan)} l='PERLENGKAPAN' />}
+                {kirim.gaji > 0 && <MyList v={new Intl.NumberFormat().format(kirim.gaji)} l='gaji' />}
+                {kirim.lainnya > 0 && <MyList v={new Intl.NumberFormat().format(kirim.lainnya)} l='LAINNYA' />}
                 <MyGap jarak={20} />
-                <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(kirim.qris * 3500)} />
-                <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(kirim.grab_gojek * 3500)} />
-                <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(kirim.reseller * 3000)} />
-                <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(kirim.penjualan_nontunai)} />
-                <MyGap jarak={20} />
-                <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(kirim.penjualan_tunai)} />
-                <MyGap jarak={20} />
-                {kirim.minyak > 0 && <MyList l='PEMBELIAN MINYAK' v={new Intl.NumberFormat().format(kirim.minyak)} />}
-                {kirim.tisu > 0 && <MyList l='PEMBELIAN TISU' v={new Intl.NumberFormat().format(kirim.tisu)} />}
-                {kirim.gas > 0 && <MyList l='PEMBELIAN GAS' v={new Intl.NumberFormat().format(kirim.gas)} />}
-                {kirim.sewa > 0 && <MyList l='PEMBELIAN SEWA' v={new Intl.NumberFormat().format(kirim.sewa)} />}
-                {kirim.listrik > 0 && <MyList l='PEMBELIAN LISTRIK' v={new Intl.NumberFormat().format(kirim.listrik)} />}
-                {kirim.atk > 0 && <MyList l='PEMBELIAN ATK' v={new Intl.NumberFormat().format(kirim.atk)} />}
-                {kirim.lainnya > 0 && <MyList l='PEMBELIAN LAINNYA' v={new Intl.NumberFormat().format(kirim.lainnya)} />}
-                <MyList judul l='PEMBELIAN OUTLET' v={new Intl.NumberFormat().format(kirim.pembelian_outlet)} />
+                <MyList judul l='TOTAL PEMBELIAN' v={'Rp.' + new Intl.NumberFormat().format(add.pembelian_total)} />
 
-                <MyGap jarak={20} />
-                <MyList judul l='SETORAN OUTLET' v={new Intl.NumberFormat().format(kirim.setoran_outlet)} />
+
             </ScrollView>
 
             <MyGap jarak={20} />
@@ -173,7 +160,7 @@ export default function AALaporanReview({ navigation, route }) {
                         flex: 1,
                         padding: 10,
                     }}>
-                        <MyButton onPress={() => navigation.navigate('AALaporan')} title="EDIT" warna={colors.primary} Icons="create-outline" />
+                        <MyButton onPress={() => navigation.navigate('AAPengeluaran')} title="EDIT" warna={colors.primary} Icons="create-outline" />
                     </View>
                 </View>}
 

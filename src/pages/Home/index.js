@@ -231,9 +231,9 @@ export default function Home({ navigation }) {
           justifyContent: 'center',
         }}>
           <MyMenu2 onPress={() => navigation.navigate('AAPermintaanCek', user)} img={require('../../assets/A1.png')} judul="PERMINTAAN OUTLET" />
-          <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A2.png')} judul="LAPORAN OUTLET" />
-          <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A3.png')} judul="PENGELUARAN OFFICE" />
-          <MyMenu2 onPress={() => navigation.navigate('AALaporan', user)} img={require('../../assets/A4.png')} judul="LAPORAN KEUANGAN" />
+          <MyMenu2 onPress={() => navigation.navigate('AALaporanOutlet', user)} img={require('../../assets/A2.png')} judul="LAPORAN OUTLET" />
+          <MyMenu2 onPress={() => navigation.navigate('AAPengeluaran', user)} img={require('../../assets/A3.png')} judul="PENGELUARAN OFFICE" />
+          <MyMenu2 onPress={() => navigation.navigate('AALaporanKeuangan', user)} img={require('../../assets/A4.png')} judul="LAPORAN KEUANGAN" />
           <MyMenu2 onPress={() => navigation.navigate('Pengguna')} img={require('../../assets/A5.png')} judul="DATA PENGGUNA" />
         </View>
       }

@@ -34,10 +34,17 @@ import AALaporanReview from './AALaporanReview';
 import AAPermintaan from './AAPermintaan';
 import AACekLaporan from './AACekLaporan';
 import AAPermintaanCek from './AAPermintaanCek';
+import AAPengeluaran from './AAPengeluaran';
+import AAPengeluaran2 from './AAPengeluaran2';
+import AAPengeluaranReview from './AAPengeluaranReview';
+import AALaporanOutlet from './AALaporanOutlet';
+import AALaporanOutletPenjualan from './AALaporanOutletPenjualan';
+import AALaporanOutletPermintaan from './AALaporanOutletPermintaan';
+import AALaporanKeuangan from './AALaporanKeuangan';
+import AALaporanKeuanganHeader from './AALaporanKeuanganHeader';
+import AALaporanKeuanganDetail from './AALaporanKeuanganDetail';
 
 // NEW
-
-
 
 
 
@@ -89,7 +96,20 @@ export {
   AALaporanReview,
   AAPermintaan,
   AACekLaporan,
-  AAPermintaanCek
+  AAPermintaanCek,
+
+
+  AAPengeluaran,
+  AAPengeluaran2,
+  AAPengeluaranReview,
+  AALaporanOutlet,
+  AALaporanOutletPenjualan,
+  AALaporanOutletPermintaan,
+
+
+  AALaporanKeuangan,
+  AALaporanKeuanganHeader,
+  AALaporanKeuanganDetail
 
 
 };

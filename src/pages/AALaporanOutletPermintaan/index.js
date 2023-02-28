@@ -50,37 +50,35 @@ const MyList = ({ l, v, judul = false }) => {
 }
 
 
-export default function AACekLaporan({ navigation, route }) {
+export default function AALaporanOutletPermintaan({ navigation, route }) {
 
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const [total, setTotal] = useState({});
 
     const [kirim, setKirim] = useState({
-        cabang: route.params.cabang,
         tanggal: moment().format('YYYY-MM-DD'),
-
-
-
     });
 
     // setLoading(false);
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
     const sendServer = () => {
         console.log(kirim);
         setLoading(true);
 
         setTimeout(() => {
 
-            axios.post(apiURL + 'laporan_cek', kirim).then(res => {
+            axios.post(apiURL + 'permintaan_outlet', kirim).then(res => {
                 console.log(res.data);
-                if (res.data.data == null) {
+                if (res.data == null) {
                     setLoading(false);
                     setOpen(false);
                     Alert.alert(MYAPP, 'Tidak ada laporan di tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY'))
                 } else {
                     setLoading(false);
                     setOpen(true);
+                    setTotal(res.data.total);
                     setData(res.data.data);
                 }
             })
@@ -102,12 +100,6 @@ export default function AACekLaporan({ navigation, route }) {
 
             <ScrollView showsVerticalScrollIndicator={false}>
 
-                <Text style={{
-                    textAlign: 'center',
-                    fontFamily: fonts.secondary[600],
-                    marginBottom: 10,
-                    fontSize: 18,
-                }}>CABANG [ {route.params.cabang} ]</Text>
 
                 <View style={{
                     flexDirection: 'row'
@@ -165,45 +157,72 @@ export default function AACekLaporan({ navigation, route }) {
                 </View>
 
                 {/* result() */}
-                <Text></Text>
+
+                <View style={{
+                    flex: 1,
+                    marginTop: 5,
+                    flexDirection: 'row',
+                    backgroundColor: colors.black,
+                }}>
+                    <Text style={styles.judul}>OUTLET</Text>
+                    <Text style={styles.judul}>MINYAK</Text>
+                    <Text style={styles.judul}>PLASTIK KECIL</Text>
+                    <Text style={styles.judul}>PLASTIK SUSU</Text>
+                    <Text style={styles.judul}>KOTAK 12X16</Text>
+                    <Text style={styles.judul}>MIKA</Text>
+                    <Text style={styles.judul}>HANDGLOVE</Text>
+                    <Text style={styles.judul}>LAINNYA</Text>
+                </View>
+
+
                 {open && <View>
-                    <Text style={{
-                        marginTop: 10,
-                        fontFamily: fonts.secondary[600],
-                        fontSize: 17,
-                        color: colors.primary,
-                        textAlign: 'right'
-                    }}>{moment(data.tanggal).format('DD/MMM/YYYY')}</Text>
-                    <MyList l='TOTAL STOCK' v={data.total_stock} />
-                    <MyList l='DITARIK' v={data.ditarik} />
-                    <MyList l='SISA MENTAH' v={data.sisa_mentah} />
-                    <MyList l='SISA MATENG' v={data.sisa_mateng} />
+
+                    {data.map(item => {
+                        return (
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                backgroundColor: colors.black,
+                            }}>
+                                <Text style={styles.isi}>{item.cabang}</Text>
+                                <Text style={styles.isi}>{item.minyak}</Text>
+                                <Text style={styles.isi}>{item.plastik_kecil}</Text>
+                                <Text style={styles.isi}>{item.plastik_susu}</Text>
+                                <Text style={styles.isi}>{item.kotak12x16}</Text>
+                                <Text style={styles.isi}>{item.mikaisi5}</Text>
+                                <Text style={styles.isi}>{item.handglove}</Text>
+                                <Text style={styles.isi}>{item.lainnya} KALI</Text>
+
+                            </View>
+                        )
+                    })}
+
+                    <View style={{
+                        flex: 1,
+
+                        flexDirection: 'row',
+                        backgroundColor: colors.black,
+                    }}>
+                        <Text style={styles.judulFooter}>TOTAL</Text>
+                        <Text style={styles.judulFooter}>{total.minyakTotal} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.plastik_kecilTotal} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.plastik_susuTotal} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.kotak12x16Total} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.mikaisi5Total} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.handgloveTotal} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.lainnyaTotal} KALI PERMINTAAN</Text>
+
+                    </View>
 
 
 
-                    <MyList l='JUMLAH' judul v={new Intl.NumberFormat().format(data.jumlah) + ' PCS'} />
-                    <MyList l='PENJUALAN KOTOR' judul v={new Intl.NumberFormat().format(data.penjualan_kotor)} />
 
-                    <MyGap jarak={20} />
-                    <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(data.qris * 3500)} />
-                    <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(data.grab_gojek * 3500)} />
-                    <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(data.reseller * 3000)} />
-                    <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(data.penjualan_nontunai)} />
-                    <MyGap jarak={20} />
-                    <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(data.penjualan_tunai)} />
-                    <MyGap jarak={20} />
-                    {data.minyak > 0 && <MyList l='PEMBELIAN MINYAK' v={new Intl.NumberFormat().format(data.minyak)} />}
-                    {data.tisu > 0 && <MyList l='PEMBELIAN TISU' v={new Intl.NumberFormat().format(data.tisu)} />}
-                    {data.gas > 0 && <MyList l='PEMBELIAN GAS' v={new Intl.NumberFormat().format(data.gas)} />}
-                    {data.sewa > 0 && <MyList l='PEMBELIAN SEWA' v={new Intl.NumberFormat().format(data.sewa)} />}
-                    {data.listrik > 0 && <MyList l='PEMBELIAN LISTRIK' v={new Intl.NumberFormat().format(data.listrik)} />}
-                    {data.atk > 0 && <MyList l='PEMBELIAN ATK' v={new Intl.NumberFormat().format(data.atk)} />}
-                    {data.lainnya > 0 && <MyList l='PEMBELIAN LAINNYA' v={new Intl.NumberFormat().format(data.lainnya)} />}
-                    <MyList judul l='PEMBELIAN OUTLET' v={new Intl.NumberFormat().format(data.pembelian_outlet)} />
 
-                    <MyGap jarak={20} />
-                    <MyList judul l='SETORAN OUTLET' v={new Intl.NumberFormat().format(data.setoran_outlet)} />
                 </View>}
+
+
+
+
             </ScrollView>
 
             <MyGap jarak={20} />
@@ -215,4 +234,59 @@ export default function AACekLaporan({ navigation, route }) {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    judul: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.black,
+        fontFamily: fonts.secondary[600],
+        fontSize: 7,
+        textAlign: 'center'
+    },
+    judulFooterIsi: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.black,
+        fontFamily: fonts.secondary[600],
+        fontSize: 11,
+        textAlign: 'center'
+    },
+    judulFooterTotal: {
+        flex: 1,
+        backgroundColor: colors.primary,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.white,
+        fontFamily: fonts.secondary[600],
+        fontSize: 11,
+    },
+    judulFooter: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.black,
+        fontFamily: fonts.secondary[600],
+        fontSize: 10,
+        textAlign: 'center'
+    },
+    isi: {
+        flex: 1,
+        backgroundColor: colors.white,
+        margin: 1,
+        paddingHorizontal: 3,
+        paddingVertical: 5,
+        color: colors.primary,
+        fontFamily: fonts.secondary[400],
+        fontSize: 10,
+        textAlign: 'center'
+    }
+})

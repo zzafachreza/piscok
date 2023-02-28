@@ -38,6 +38,15 @@ import {
   AAPermintaan,
   AACekLaporan,
   AAPermintaanCek,
+  AAPengeluaran,
+  AAPengeluaran2,
+  AAPengeluaranReview,
+  AALaporanOutlet,
+  AALaporanOutletPenjualan,
+  AALaporanOutletPermintaan,
+  AALaporanKeuangan,
+  AALaporanKeuanganHeader,
+  AALaporanKeuanganDetail,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -171,6 +180,128 @@ export default function Router() {
         options={{
           headerShown: true,
           headerTitle: 'PERMINTAAN OUTLET',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+
+      <Stack.Screen
+        name="AAPengeluaran"
+        component={AAPengeluaran}
+        options={{
+          headerShown: true,
+          headerTitle: 'PENGELUARAN OFFICE 1/3',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AAPengeluaran2"
+        component={AAPengeluaran2}
+        options={{
+          headerShown: true,
+          headerTitle: 'PENGELUARAN OFFICE 2/3',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AAPengeluaranReview"
+        component={AAPengeluaranReview}
+        options={{
+          headerShown: true,
+          headerTitle: 'PENGELUARAN OFFICE 3/3',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AALaporanOutlet"
+        component={AALaporanOutlet}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN OUTLET',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+
+
+      <Stack.Screen
+        name="AALaporanOutletPenjualan"
+        component={AALaporanOutletPenjualan}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN OUTLET PENJUALAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AALaporanOutletPermintaan"
+        component={AALaporanOutletPermintaan}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN OUTLET PERMINTAAN BAHAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+
+      <Stack.Screen
+        name="AALaporanKeuangan"
+        component={AALaporanKeuangan}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN KEUANGAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AALaporanKeuanganHeader"
+        component={AALaporanKeuanganHeader}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN KEUANGAN SUMMARY',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+
+      <Stack.Screen
+        name="AALaporanKeuanganDetail"
+        component={AALaporanKeuanganDetail}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN KEUANGAN DETAIL',
           headerStyle: {
             backgroundColor: colors.primary,
           },
