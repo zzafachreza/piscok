@@ -42,6 +42,7 @@ export default function AALaporanKeuanganDetail({ navigation, route }) {
     // setLoading(false);
 
     const [data, setData] = useState({});
+    const [data2, setData2] = useState({});
     const sendServer = () => {
         console.log(kirim);
         setLoading(true);
@@ -58,6 +59,7 @@ export default function AALaporanKeuanganDetail({ navigation, route }) {
                     setLoading(false);
                     setOpen(true);
                     setData(res.data.data);
+                    setData2(res.data.data2);
                 }
             })
         }, 200)
@@ -151,21 +153,25 @@ export default function AALaporanKeuanganDetail({ navigation, route }) {
                         <Text style={styles.judulFooterTotal}>BULAN INI</Text>
                     </View>
 
-                    <MyList l="MINYAK" v={'Rp' + new Intl.NumberFormat().format(data.minyak)} />
+                    <MyList l="MINYAK" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data.minyak) + parseFloat(data2.minyak))} />
                     <MyList l="COKELAT" v={'Rp' + new Intl.NumberFormat().format(data.cokelat)} />
                     <MyList l="PISANG" v={'Rp' + new Intl.NumberFormat().format(data.pisang)} />
-                    <MyList l="LUMPIA" v={'Rp' + new Intl.NumberFormat().format(data.lumpia)} />
+                    <MyList l="LUMPIA" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data.lumpia) + parseFloat(data2.lumpia))} />
                     <MyList l="MIKA" v={'Rp' + new Intl.NumberFormat().format(data.mika)} />
                     <MyList l="PLASTIK" v={'Rp' + new Intl.NumberFormat().format(data.plastik)} />
                     <MyList l="KOTAK" v={'Rp' + new Intl.NumberFormat().format(data.kotak)} />
-                    <MyList l="SEWA" v={'Rp' + new Intl.NumberFormat().format(data.sewa)} />
+                    <MyList l="TISSUE" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data.tissue) + parseFloat(data2.tisu))} />
+                    <MyList l="SEWA" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data.sewa) + parseFloat(data2.sewa))} />
                     <MyList l="DONASI" v={'Rp' + new Intl.NumberFormat().format(data.donasi)} />
                     <MyList l="IKLAN" v={'Rp' + new Intl.NumberFormat().format(data.iklan)} />
                     <MyList l="REWARD" v={'Rp' + new Intl.NumberFormat().format(data.reward)} />
                     <MyList l="PERALATAN" v={'Rp' + new Intl.NumberFormat().format(data.peralatan)} />
                     <MyList l="PERLENGKAPAN" v={'Rp' + new Intl.NumberFormat().format(data.perlengkapan)} />
-                    <MyList l="GAJI" v={'Rp' + new Intl.NumberFormat().format(data.gaji)} />
-                    <MyList l="LAINNYA" v={'Rp' + new Intl.NumberFormat().format(data.lainnya)} />
+                    <MyList l="LISTRIK" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data2.listrik))} />
+                    <MyList l="ATK" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data2.atk))} />
+                    <MyList l="GAS" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data2.gas))} />
+                    <MyList l="GAJI" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data.gaji) + parseFloat(data2.gaji))} />
+                    <MyList l="LAINNYA" v={'Rp' + new Intl.NumberFormat().format(parseFloat(data.lainnya) + parseFloat(data2.lainnya))} />
 
 
 

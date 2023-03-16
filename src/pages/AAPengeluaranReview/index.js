@@ -66,6 +66,7 @@ export default function AAPengeluaranReview({ navigation, route }) {
             parseFloat(kirim.sewa) +
             parseFloat(kirim.donasi) +
             parseFloat(kirim.iklan) +
+            parseFloat(kirim.tissue) +
             parseFloat(kirim.reward) +
             parseFloat(kirim.peralatan) +
             parseFloat(kirim.perlengkapan) +
@@ -131,6 +132,7 @@ export default function AAPengeluaranReview({ navigation, route }) {
                 {kirim.mika > 0 && <MyList v={new Intl.NumberFormat().format(kirim.mika)} l='MIKA' />}
                 {kirim.plastik > 0 && <MyList v={new Intl.NumberFormat().format(kirim.plastik)} l='PLASTIK' />}
                 {kirim.kotak > 0 && <MyList v={new Intl.NumberFormat().format(kirim.kotak)} l='KOTAK' />}
+                {kirim.tissue > 0 && <MyList v={new Intl.NumberFormat().format(kirim.tissue)} l='TISSUE' />}
                 {kirim.sewa > 0 && <MyList v={new Intl.NumberFormat().format(kirim.sewa)} l='SEWA' />}
                 {kirim.donasi > 0 && <MyList v={new Intl.NumberFormat().format(kirim.donasi)} l='DONASI' />}
                 {kirim.iklan > 0 && <MyList v={new Intl.NumberFormat().format(kirim.iklan)} l='IKLAN' />}

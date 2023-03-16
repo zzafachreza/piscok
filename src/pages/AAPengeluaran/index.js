@@ -31,6 +31,7 @@ export default function AAPengeluaran({ navigation, route }) {
         mika: 0,
         plastik: 0,
         kotak: 0,
+        tissue: 0,
         sewa: 0,
         donasi: 0,
         iklan: 0,
@@ -111,6 +112,7 @@ export default function AAPengeluaran({ navigation, route }) {
                 <MyInput2 keyboardType="number-pad" label="MIKA" onChangeText={x => setKirim({ ...kirim, mika: x })} />
                 <MyInput2 keyboardType="number-pad" label="PLASTIK" onChangeText={x => setKirim({ ...kirim, plastik: x })} />
                 <MyInput2 keyboardType="number-pad" label="KOTAK" onChangeText={x => setKirim({ ...kirim, kotak: x })} />
+                <MyInput2 keyboardType="number-pad" label="TISSUE" onChangeText={x => setKirim({ ...kirim, tissue: x })} />
 
             </ScrollView>
 
