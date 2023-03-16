@@ -47,6 +47,7 @@ import {
   AALaporanKeuangan,
   AALaporanKeuanganHeader,
   AALaporanKeuanganDetail,
+  AALaporan3,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -108,7 +109,7 @@ export default function Router() {
         component={AALaporan}
         options={{
           headerShown: true,
-          headerTitle: 'LAPORAN 1/3',
+          headerTitle: 'LAPORAN',
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -121,7 +122,20 @@ export default function Router() {
         component={AALaporan2}
         options={{
           headerShown: true,
-          headerTitle: 'LAPORAN 2/3',
+          headerTitle: 'PENGELUARAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AALaporan3"
+        component={AALaporan3}
+        options={{
+          headerShown: true,
+          headerTitle: 'KEUANGAN',
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -139,7 +153,7 @@ export default function Router() {
         component={AALaporanReview}
         options={{
           headerShown: true,
-          headerTitle: 'LAPORAN 3/3',
+          headerTitle: 'LAPORAN HARI INI',
           headerStyle: {
             backgroundColor: colors.primary,
           },

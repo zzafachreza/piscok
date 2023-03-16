@@ -27,6 +27,7 @@ import AASetor from './AASetor';
 import AAMember from './AAMember';
 import AALaporan from './AALaporan';
 import AALaporan2 from './AALaporan2';
+import AALaporan3 from './AALaporan3';
 import Pengguna from './Pengguna';
 import PenggunaAdd from './PenggunaAdd';
 import PenggunaEdit from './PenggunaEdit';
@@ -43,6 +44,7 @@ import AALaporanOutletPermintaan from './AALaporanOutletPermintaan';
 import AALaporanKeuangan from './AALaporanKeuangan';
 import AALaporanKeuanganHeader from './AALaporanKeuanganHeader';
 import AALaporanKeuanganDetail from './AALaporanKeuanganDetail';
+
 
 // NEW
 
@@ -90,6 +92,7 @@ export {
   AAMember,
   AALaporan,
   AALaporan2,
+  AALaporan3,
   Pengguna,
   PenggunaAdd,
   PenggunaEdit,

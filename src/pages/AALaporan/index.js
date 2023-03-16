@@ -34,11 +34,17 @@ export default function AALaporan({ navigation, route }) {
         reseller: 0,
         minyak: 0,
         tisu: 0,
-        gas: 0,
+        lumpia: 0,
         sewa: 0,
         listrik: 0,
         atk: 0,
+        gas: 0,
+        gaji: 0,
         lainnya: 0,
+        modal: 0,
+        tunai_qris: 0,
+        tarik_tunai: 0,
+        diskon_reseller: 0,
     });
 
     // setLoading(false);

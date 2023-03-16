@@ -63,8 +63,10 @@ export default function AALaporanReview({ navigation, route }) {
         total_beli: (parseFloat(route.params.minyak) +
             parseFloat(route.params.tisu) +
             parseFloat(route.params.gas) +
+            parseFloat(route.params.lumpia) +
             parseFloat(route.params.sewa) +
             parseFloat(route.params.listrik) +
+            parseFloat(route.params.gaji) +
             parseFloat(route.params.atk) +
             parseFloat(route.params.lainnya)),
     })
@@ -79,16 +81,16 @@ export default function AALaporanReview({ navigation, route }) {
                 parseFloat(route.params.sisa_mentah) +
                 parseFloat(route.params.sisa_mateng)),
             penjualan_kotor: add.jumlah * 3500,
-            penjualan_nontunai: (kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000),
-            penjualan_tunai: (add.jumlah * 3500) - ((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000)),
+            penjualan_nontunai: ((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris),
+            penjualan_tunai: (add.jumlah * 3500) - (((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris)) - add.total_beli,
             pembelian_outlet: add.total_beli,
-            setoran_outlet: ((add.jumlah * 3500) - ((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000))) - add.total_beli
+            setoran_outlet: ((add.jumlah * 3500) - (((kirim.qris * 3500) + (kirim.grab_gojek * 3500) + (kirim.reseller * 3000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris)) - add.total_beli) + parseFloat(kirim.modal) + parseFloat(kirim.diskon_reseller)
         });
     }, [])
 
     const sendServer = () => {
         // setLoading(true);
-
+        console.log('send server', kirim)
 
         setTimeout(() => {
             console.log('send server', kirim)
@@ -97,8 +99,9 @@ export default function AALaporanReview({ navigation, route }) {
                 console.log(res.data);
                 if (res.data.status == 200) {
                     setLoading(false);
-                    setKirim({})
                     Alert.alert(MYAPP, 'Laporan tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY') + ' berhasil di simpan !');
+                    setKirim({})
+
                     navigation.replace('Home');
                 }
             })
@@ -139,23 +142,36 @@ export default function AALaporanReview({ navigation, route }) {
 
                 <MyGap jarak={20} />
                 <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(kirim.qris * 3500)} />
+                <MyList l='TUNAI QRIS' v={`( ${new Intl.NumberFormat().format(kirim.tunai_qris)} )`} />
                 <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(kirim.grab_gojek * 3500)} />
                 <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(kirim.reseller * 3000)} />
+                <MyList l='TARIK TUNAI' v={new Intl.NumberFormat().format(kirim.tarik_tunai)} />
                 <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(kirim.penjualan_nontunai)} />
-                <MyGap jarak={20} />
-                <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(kirim.penjualan_tunai)} />
-                <MyGap jarak={20} />
-                {kirim.minyak > 0 && <MyList l='PEMBELIAN MINYAK' v={new Intl.NumberFormat().format(kirim.minyak)} />}
-                {kirim.tisu > 0 && <MyList l='PEMBELIAN TISU' v={new Intl.NumberFormat().format(kirim.tisu)} />}
-                {kirim.gas > 0 && <MyList l='PEMBELIAN GAS' v={new Intl.NumberFormat().format(kirim.gas)} />}
-                {kirim.sewa > 0 && <MyList l='PEMBELIAN SEWA' v={new Intl.NumberFormat().format(kirim.sewa)} />}
-                {kirim.listrik > 0 && <MyList l='PEMBELIAN LISTRIK' v={new Intl.NumberFormat().format(kirim.listrik)} />}
-                {kirim.atk > 0 && <MyList l='PEMBELIAN ATK' v={new Intl.NumberFormat().format(kirim.atk)} />}
-                {kirim.lainnya > 0 && <MyList l='PEMBELIAN LAINNYA' v={new Intl.NumberFormat().format(kirim.lainnya)} />}
-                <MyList judul l='PEMBELIAN OUTLET' v={new Intl.NumberFormat().format(kirim.pembelian_outlet)} />
+
 
                 <MyGap jarak={20} />
-                <MyList judul l='SETORAN OUTLET' v={new Intl.NumberFormat().format(kirim.setoran_outlet)} />
+                {kirim.gaji > 0 && <MyList l='GAJI' v={new Intl.NumberFormat().format(kirim.gaji)} />}
+                {kirim.minyak > 0 && <MyList l='MINYAK' v={new Intl.NumberFormat().format(kirim.minyak)} />}
+                {kirim.tisu > 0 && <MyList l='TISU' v={new Intl.NumberFormat().format(kirim.tisu)} />}
+                {kirim.gas > 0 && <MyList l='GAS' v={new Intl.NumberFormat().format(kirim.gas)} />}
+                {kirim.lumpia > 0 && <MyList l='LUMPIA' v={new Intl.NumberFormat().format(kirim.lumpia)} />}
+
+                {kirim.sewa > 0 && <MyList l='SEWA' v={new Intl.NumberFormat().format(kirim.sewa)} />}
+                {kirim.listrik > 0 && <MyList l='LISTRIK' v={new Intl.NumberFormat().format(kirim.listrik)} />}
+                {kirim.atk > 0 && <MyList l='ATK' v={new Intl.NumberFormat().format(kirim.atk)} />}
+                {kirim.lainnya > 0 && <MyList l='LAINNYA' v={new Intl.NumberFormat().format(kirim.lainnya)} />}
+                <MyList judul l='TOTAL PENGELUARAN' v={new Intl.NumberFormat().format(kirim.pembelian_outlet)} />
+                <MyGap jarak={5} />
+                <View style={{
+                    borderBottomWidth: 1,
+                    borderBottomColor: colors.success,
+                    marginVertical: 5,
+                }} />
+                <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(kirim.penjualan_tunai)} />
+                <MyList judul l='MODAL' v={new Intl.NumberFormat().format(kirim.modal)} />
+                <MyList judul l='DISKON RESELLER' v={new Intl.NumberFormat().format(kirim.diskon_reseller)} />
+                <MyList judul l='SETORAN TUNAI' v={new Intl.NumberFormat().format(kirim.setoran_outlet)} />
+
             </ScrollView>
 
             <MyGap jarak={20} />

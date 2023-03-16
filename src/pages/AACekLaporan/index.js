@@ -55,17 +55,49 @@ export default function AACekLaporan({ navigation, route }) {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
+    const [ubah, setUbah] = useState({
+        cabang: route.params.cabang,
+        tanggal: moment().format('YYYY-MM-DD'),
+    })
+
     const [kirim, setKirim] = useState({
         cabang: route.params.cabang,
         tanggal: moment().format('YYYY-MM-DD'),
-
-
-
     });
 
     // setLoading(false);
 
     const [data, setData] = useState({});
+
+    const sendUbah = () => {
+        Alert.alert(MYAPP, 'Apakah kamu yakin akan ubah tanggal dari ' + moment(data.tanggal).format('DD/MMM/YYYY') + ' ke tangal ' + moment(ubah.tanggal).format('DD/MMM/YYYY'),
+            [
+                { text: 'TIDAK' },
+                {
+                    text: 'IYA',
+                    onPress: () => {
+                        setLoading(true);
+
+                        setTimeout(() => {
+
+                            axios.post(apiURL + 'laporan_update', {
+                                id_laporan: data.id_laporan,
+                                tanggal: ubah.tanggal
+                            }).then(res => {
+                                console.log(res.data);
+                                setLoading(false);
+                                setData({
+                                    ...data,
+                                    tanggal: ubah.tanggal
+                                });
+
+                            })
+                        }, 200)
+                    }
+                }
+            ])
+    }
+
     const sendServer = () => {
         console.log(kirim);
         setLoading(true);
@@ -186,27 +218,87 @@ export default function AACekLaporan({ navigation, route }) {
 
                     <MyGap jarak={20} />
                     <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(data.qris * 3500)} />
+                    <MyList l='TUNAI QRIS' v={`( ${new Intl.NumberFormat().format(data.tunai_qris)} )`} />
                     <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(data.grab_gojek * 3500)} />
                     <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(data.reseller * 3000)} />
+                    <MyList l='TARIK TUNAI' v={new Intl.NumberFormat().format(data.tarik_tunai)} />
                     <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(data.penjualan_nontunai)} />
+
                     <MyGap jarak={20} />
-                    <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(data.penjualan_tunai)} />
-                    <MyGap jarak={20} />
+                    {data.gaji > 0 && <MyList l='GAJI' v={new Intl.NumberFormat().format(data.gaji)} />}
                     {data.minyak > 0 && <MyList l='PEMBELIAN MINYAK' v={new Intl.NumberFormat().format(data.minyak)} />}
                     {data.tisu > 0 && <MyList l='PEMBELIAN TISU' v={new Intl.NumberFormat().format(data.tisu)} />}
+                    {data.lumpia > 0 && <MyList l='LUMPIA' v={new Intl.NumberFormat().format(data.lumpia)} />}
                     {data.gas > 0 && <MyList l='PEMBELIAN GAS' v={new Intl.NumberFormat().format(data.gas)} />}
                     {data.sewa > 0 && <MyList l='PEMBELIAN SEWA' v={new Intl.NumberFormat().format(data.sewa)} />}
                     {data.listrik > 0 && <MyList l='PEMBELIAN LISTRIK' v={new Intl.NumberFormat().format(data.listrik)} />}
                     {data.atk > 0 && <MyList l='PEMBELIAN ATK' v={new Intl.NumberFormat().format(data.atk)} />}
                     {data.lainnya > 0 && <MyList l='PEMBELIAN LAINNYA' v={new Intl.NumberFormat().format(data.lainnya)} />}
-                    <MyList judul l='PEMBELIAN OUTLET' v={new Intl.NumberFormat().format(data.pembelian_outlet)} />
-
+                    <MyList judul l='TOTAL PENGELUARAN' v={new Intl.NumberFormat().format(data.pembelian_outlet)} />
                     <MyGap jarak={20} />
-                    <MyList judul l='SETORAN OUTLET' v={new Intl.NumberFormat().format(data.setoran_outlet)} />
+                    <MyList judul l='PENJUALAN TUNAI' v={new Intl.NumberFormat().format(data.penjualan_tunai)} />
+                    <MyList judul l='MODAL' v={new Intl.NumberFormat().format(data.modal)} />
+                    <MyList judul l='DISKON RESELLER' v={new Intl.NumberFormat().format(data.diskon_reseller)} />
+                    <MyList judul l='SETORAN TUNAI' v={new Intl.NumberFormat().format(data.setoran_outlet)} />
                 </View>}
             </ScrollView>
 
             <MyGap jarak={20} />
+
+            <View style={{
+                flexDirection: 'row'
+            }}>
+                <View style={{
+                    flex: 1,
+                }}>
+                    <DatePicker
+                        style={{ width: '100%' }}
+                        date={ubah.tanggal}
+                        mode="date"
+                        placeholder="Silahkan pilih tanggal"
+                        format="YYYY-MM-DD"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                            dateInput: {
+                                borderWidth: 1,
+                                backgroundColor: colors.zavalabs,
+                                borderColor: colors.primary,
+                                borderRadius: 10,
+                                color: colors.black,
+                                fontSize: 12,
+                                fontFamily: fonts.primary[400],
+                                width: '100%'
+                            }
+                            // ... You can check the source to find the other keys.
+                        }}
+                        onDateChange={date => setUbah({ ...kirim, tanggal: date })}
+                    />
+                </View>
+                <View style={{
+                    flex: 1,
+                }}>
+                    <TouchableOpacity onPress={sendUbah} style={{
+                        backgroundColor: colors.danger,
+                        height: 40,
+                        borderRadius: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                    }}>
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            color: colors.white
+                        }}>UBAH TANGGAL</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
 
 
             {loading && <ActivityIndicator size="large" color={colors.primary} />

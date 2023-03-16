@@ -68,6 +68,7 @@ export default function AAPermintaan({ navigation, route }) {
         mikaisi5: 0,
         handglove: 0,
         lainnya: 0,
+        tissue: 0,
         catatan: '',
     });
 
@@ -156,6 +157,7 @@ export default function AAPermintaan({ navigation, route }) {
                 <MyCek label="KOTAK 12X16" value={kirim.kotak12x16} onPress={() => kirim.kotak12x16 > 0 ? setKirim({ ...kirim, kotak12x16: 0 }) : setKirim({ ...kirim, kotak12x16: 1 })} />
                 <MyCek label="MIKA ISI 5" value={kirim.mikaisi5} onPress={() => kirim.mikaisi5 > 0 ? setKirim({ ...kirim, mikaisi5: 0 }) : setKirim({ ...kirim, mikaisi5: 1 })} />
                 <MyCek label="HANDGLOVE" value={kirim.handglove} onPress={() => kirim.handglove > 0 ? setKirim({ ...kirim, handglove: 0 }) : setKirim({ ...kirim, handglove: 1 })} />
+                <MyCek label="TISSUE" value={kirim.tissue} onPress={() => kirim.tissue > 0 ? setKirim({ ...kirim, tissue: 0 }) : setKirim({ ...kirim, tissue: 1 })} />
                 <MyCek label="LAINNYA" value={kirim.lainnya} onPress={() => {
                     if (kirim.lainnya > 0) {
                         setKirim({ ...kirim, lainnya: 0 });
@@ -173,8 +175,10 @@ export default function AAPermintaan({ navigation, route }) {
                     fontFamily: fonts.primary[400],
                     paddingLeft: 10,
                     borderWidth: 1,
+                    color: colors.black,
+                    backgroundColor: colors.white,
                     borderColor: colors.primary,
-                    fontSize: 14
+                    fontSize: 18
                 }} />
 
             </ScrollView>

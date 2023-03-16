@@ -64,13 +64,13 @@ export default function AALaporanOutletPenjualan({ navigation, route }) {
 
     const [data, setData] = useState([]);
     const sendServer = () => {
-        console.log(kirim);
+        // console.log(kirim);
         setLoading(true);
 
         setTimeout(() => {
 
             axios.post(apiURL + 'laporan_outlet', kirim).then(res => {
-                console.log(res.data.total);
+                console.log(res.data);
                 if (res.data == null) {
                     setLoading(false);
                     setOpen(false);
@@ -185,7 +185,22 @@ export default function AALaporanOutletPenjualan({ navigation, route }) {
                                 flexDirection: 'row',
                                 backgroundColor: colors.border,
                             }}>
-                                <Text style={styles.isi}>{item.cabang}</Text>
+                                <Text style={styles.isi}>{item.cabang}<TouchableOpacity onPress={() => {
+                                    Alert.alert(MYAPP, 'Apakah kamu yakin akan hapus ini ?', [
+                                        { text: 'TIDAK' },
+                                        {
+                                            text: 'IYA',
+                                            onPress: () => {
+                                                axios.post(apiURL + 'laporan_outlet_delete', {
+                                                    id_laporan: item.id
+                                                }).then(rs => {
+                                                    console.log(rs.data);
+                                                    sendServer();
+                                                })
+                                            }
+                                        }
+                                    ])
+                                }}><Icon type='ionicon' name='trash' size={10} /></TouchableOpacity></Text>
                                 <Text style={styles.isi}>{item.total_stock}</Text>
                                 <Text style={styles.isi}>{item.ditarik}</Text>
                                 <Text style={styles.isi}>{item.sisa_mentah}</Text>
@@ -217,20 +232,33 @@ export default function AALaporanOutletPenjualan({ navigation, route }) {
                     </View>
 
                     <View style={{ flex: 1, marginTop: 5, flexDirection: 'row', backgroundColor: colors.border, }}>
-                        <Text style={styles.judulFooterTotal}>PENJUALAN TUNAI</Text>
-                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.penjualan_tunaiTotal)}</Text>
+                        <Text style={styles.judulFooterTotal}>PENJUALAN KOTOR</Text>
+                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.penjualan_kotorTotal)}</Text>
                     </View>
+
                     <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
                         <Text style={styles.judulFooterTotal}>PENJUALAN NON TUNAI</Text>
                         <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.penjualan_nontunaiTotal)}</Text>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
-                        <Text style={styles.judulFooterTotal}>PEMBELIAN OUTLET</Text>
-                        <Text style={styles.judulFooterIsi}>( {'Rp' + new Intl.NumberFormat().format(total.pembelian_outletTotal)} )</Text>
+                        <Text style={styles.judulFooterTotal}>TOTAL PENGELUARAN</Text>
+                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.pembelian_outletTotal)}</Text>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
-                        <Text style={styles.judulFooterTotal}>TOTAL</Text>
-                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.total_all)}</Text>
+                        <Text style={styles.judulFooterTotal}>PENJUALAN TUNAI</Text>
+                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.penjualan_tunaiTotal)}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
+                        <Text style={styles.judulFooterTotal}>MODAL</Text>
+                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.modalTotal)}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
+                        <Text style={styles.judulFooterTotal}>DISKON RESELLER</Text>
+                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.diskon_resellerTotal)}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.border, }}>
+                        <Text style={styles.judulFooterTotal}>TOTAL SETORAN</Text>
+                        <Text style={styles.judulFooterIsi}>{'Rp' + new Intl.NumberFormat().format(total.setoran_outletTotal)}</Text>
                     </View>
 
 

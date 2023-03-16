@@ -50,40 +50,7 @@ const MyList = ({ l, v, judul = false }) => {
 }
 
 
-const MyCekDetail = ({ l, v, index, onChangeText }) => {
-    return (
-        <View style={{
-            marginVertical: 2,
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center'
-        }}>
-            <View style={{
-                flex: 0.8,
-            }}>
-                <Text style={{
-                    fontFamily: fonts.secondary[400],
-                    fontSize: 15,
-                }}>{l}</Text>
-            </View>
-            <View style={{
-                flex: 1,
-            }}>
-                <TextInput onChangeText={onChangeText} keyboardType='number-pad' style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: 12,
-                    padding: 3,
-                    backgroundColor: colors.white,
-                    width: 50,
-                    borderColor: colors.primary,
-                    borderWidth: 1,
-                    color: colors.black,
-                    textAlign: 'center',
-                }} />
-            </View>
-        </View>
-    )
-}
+
 
 
 const MyCek = ({ index, onChangeText,
@@ -95,6 +62,7 @@ const MyCek = ({ index, onChangeText,
     kotak12x16,
     mikaisi5,
     handglove,
+    tissue,
     lainnya,
     catatan
 }) => {
@@ -131,6 +99,9 @@ const MyCek = ({ index, onChangeText,
                 {handglove > 0 && <MyCekDetail onChangeText={x => {
                     console.log(x)
                 }} index={index} l="HANDGLOVE" v={handglove} />}
+                {tissue > 0 && <MyCekDetail onChangeText={x => {
+                    console.log(x)
+                }} index={index} l="TISSUE" v={tissue} />}
                 {lainnya > 0 && <MyCekDetail onChangeText={x => {
                     console.log(x)
                 }} index={index} l="LAINNYA" v={lainnya} />}
@@ -167,6 +138,78 @@ export default function AAPermintaanCek({ navigation, route }) {
         tanggal: moment().format('YYYY-MM-DD'),
     });
 
+    const MyCekDetail = ({ l, v, index, onChangeText, id, kolom }) => {
+        return (
+            <View style={{
+                marginVertical: 2,
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'center'
+            }}>
+                <TouchableOpacity onPress={() => {
+                    Alert.alert(MYAPP, 'Apakah kamu akan hapus ini ?', [
+                        { text: 'TIDAK', },
+                        {
+                            text: 'IYA',
+                            onPress: () => {
+                                axios.post(apiURL + 'permintaan_delete', {
+                                    id: id,
+                                    kolom: kolom
+                                }).then(res => {
+                                    setLoading(true);
+
+                                    setTimeout(() => {
+
+                                        axios.post(apiURL + 'permintaan_cek', kirim).then(res => {
+                                            console.log(res.data);
+                                            if (res.data.length == 0) {
+                                                setLoading(false);
+                                                setOpen(false);
+                                                Alert.alert(MYAPP, 'Tidak ada permintaan di tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY'))
+                                            } else {
+                                                setLoading(false);
+                                                setOpen(true);
+                                                setData(res.data);
+                                            }
+                                        })
+                                    }, 200)
+
+                                })
+                            }
+                        }
+                    ])
+
+                }}>
+                    <Icon type='ionicon' name='trash' size={15} color={colors.danger} />
+                </TouchableOpacity>
+                <View style={{
+                    paddingLeft: 10,
+                    flex: 0.8,
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.secondary[400],
+                        fontSize: 15,
+                    }}>{l}</Text>
+                </View>
+                <View style={{
+                    flex: 1,
+                }}>
+                    <TextInput onChangeText={onChangeText} keyboardType='number-pad' style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: 12,
+                        padding: 3,
+                        backgroundColor: colors.white,
+                        width: 50,
+                        borderColor: colors.primary,
+                        borderWidth: 1,
+                        color: colors.black,
+                        textAlign: 'center',
+                    }} />
+                </View>
+
+            </View>
+        )
+    }
     // setLoading(false);
 
     const [data, setData] = useState([]);
@@ -300,13 +343,14 @@ export default function AAPermintaanCek({ navigation, route }) {
                                         fontFamily: fonts.secondary[600],
                                         fontSize: 17,
                                     }}>{item.cabang}</Text>
-                                    {item.minyak > 0 && <MyCekDetail onChangeText={x => data[index].minyak = x} index={index} l="MINYAK" v={item.minyak} />}
-                                    {item.plastik_kecil > 0 && <MyCekDetail onChangeText={x => data[index].plastik_kecil = x} index={index} l="PLASTIK KECIL" v={item.plastik_kecil} />}
-                                    {item.plastik_susu > 0 && <MyCekDetail onChangeText={x => data[index].plastik_susu = x} index={index} l="PLASTIK SUSU" v={item.plastik_susu} />}
-                                    {item.kotak12x16 > 0 && <MyCekDetail onChangeText={x => data[index].kotak12x16 = x} index={index} l="KOTAK 12x16" v={item.kotak12x16} />}
-                                    {item.mikaisi5 > 0 && <MyCekDetail onChangeText={x => data[index].mikaisi5 = x} index={index} l="MIKA ISI 5" v={item.mikaisi5} />}
-                                    {item.handglove > 0 && <MyCekDetail onChangeText={x => data[index].handglove = x} index={index} l="HANDGLOVE" v={item.handglove} />}
-                                    {item.lainnya > 0 && <MyCekDetail onChangeText={x => data[index].lainnya = x} index={index} l="LAINNYA" v={item.lainnya} />}
+                                    {item.minyak > 0 && <MyCekDetail id={data[index].id} kolom="minyak" onChangeText={x => data[index].minyak = x} index={index} l="MINYAK" v={item.minyak} />}
+                                    {item.plastik_kecil > 0 && <MyCekDetail id={data[index].id} kolom="plastik_kecil" onChangeText={x => data[index].plastik_kecil = x} index={index} l="PLASTIK KECIL" v={item.plastik_kecil} />}
+                                    {item.plastik_susu > 0 && <MyCekDetail id={data[index].id} kolom="plastik_susu" onChangeText={x => data[index].plastik_susu = x} index={index} l="PLASTIK SUSU" v={item.plastik_susu} />}
+                                    {item.kotak12x16 > 0 && <MyCekDetail id={data[index].id} kolom="kotak12x16" onChangeText={x => data[index].kotak12x16 = x} index={index} l="KOTAK 12x16" v={item.kotak12x16} />}
+                                    {item.mikaisi5 > 0 && <MyCekDetail id={data[index].id} kolom="mikaisi5" onChangeText={x => data[index].mikaisi5 = x} index={index} l="MIKA ISI 5" v={item.mikaisi5} />}
+                                    {item.handglove > 0 && <MyCekDetail id={data[index].id} kolom="handglove" onChangeText={x => data[index].handglove = x} index={index} l="HANDGLOVE" v={item.handglove} />}
+                                    {item.tissue > 0 && <MyCekDetail id={data[index].id} kolom="tissue" onChangeText={x => data[index].tissue = x} index={index} l="TISSUE" v={item.tissue} />}
+                                    {item.lainnya > 0 && <MyCekDetail id={data[index].id} kolom="lainnya" onChangeText={x => data[index].lainnya = x} index={index} l="LAINNYA" v={item.lainnya} />}
                                     {item.lainnya > 0 && <View>
                                         <Text style={{
                                             fontFamily: fonts.secondary[200],

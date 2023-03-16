@@ -171,6 +171,7 @@ export default function AALaporanOutletPermintaan({ navigation, route }) {
                     <Text style={styles.judul}>KOTAK 12X16</Text>
                     <Text style={styles.judul}>MIKA</Text>
                     <Text style={styles.judul}>HANDGLOVE</Text>
+                    <Text style={styles.judul}>TISSUE</Text>
                     <Text style={styles.judul}>LAINNYA</Text>
                 </View>
 
@@ -184,13 +185,30 @@ export default function AALaporanOutletPermintaan({ navigation, route }) {
                                 flexDirection: 'row',
                                 backgroundColor: colors.black,
                             }}>
-                                <Text style={styles.isi}>{item.cabang}</Text>
+                                <Text style={styles.isi}>{item.cabang}
+                                    <TouchableOpacity onPress={() => {
+                                        Alert.alert(MYAPP, 'Apakah kamu yakin akan hapus ini ?', [
+                                            { text: 'TIDAK' },
+                                            {
+                                                text: 'IYA',
+                                                onPress: () => {
+                                                    axios.post(apiURL + 'permintaan_outlet_delete', {
+                                                        id_permintaan: item.id
+                                                    }).then(rs => {
+                                                        console.log(rs.data);
+                                                        sendServer();
+                                                    })
+                                                }
+                                            }
+                                        ])
+                                    }}><Icon type='ionicon' name='trash' size={10} /></TouchableOpacity></Text>
                                 <Text style={styles.isi}>{item.minyak}</Text>
                                 <Text style={styles.isi}>{item.plastik_kecil}</Text>
                                 <Text style={styles.isi}>{item.plastik_susu}</Text>
                                 <Text style={styles.isi}>{item.kotak12x16}</Text>
                                 <Text style={styles.isi}>{item.mikaisi5}</Text>
                                 <Text style={styles.isi}>{item.handglove}</Text>
+                                <Text style={styles.isi}>{item.tissue}</Text>
                                 <Text style={styles.isi}>{item.lainnya} KALI</Text>
 
                             </View>
@@ -210,6 +228,7 @@ export default function AALaporanOutletPermintaan({ navigation, route }) {
                         <Text style={styles.judulFooter}>{total.kotak12x16Total} PACK</Text>
                         <Text style={styles.judulFooter}>{total.mikaisi5Total} PACK</Text>
                         <Text style={styles.judulFooter}>{total.handgloveTotal} PACK</Text>
+                        <Text style={styles.judulFooter}>{total.tissueTotal} PACK</Text>
                         <Text style={styles.judulFooter}>{total.lainnyaTotal} KALI PERMINTAAN</Text>
 
                     </View>

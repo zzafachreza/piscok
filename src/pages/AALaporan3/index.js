@@ -17,7 +17,7 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
 import MyInput2 from '../../components/MyInput2';
 
-export default function AALaporan2({ navigation, route }) {
+export default function AALaporan3({ navigation, route }) {
 
     const [loading, setLoading] = useState(false);
 
@@ -29,7 +29,7 @@ export default function AALaporan2({ navigation, route }) {
     const sendServer = () => {
         console.log(kirim);
 
-        navigation.navigate('AALaporan3', kirim)
+        navigation.navigate('AALaporanReview', kirim)
 
         // axios.post(apiURL + 'laporan_add', kirim).then(res => {
         //     setLoading(true);
@@ -42,7 +42,6 @@ export default function AALaporan2({ navigation, route }) {
         // })
     }
 
-    const [region, setRegion] = useState([]);
 
     useEffect(() => {
 
@@ -59,15 +58,10 @@ export default function AALaporan2({ navigation, route }) {
 
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <MyInput2 label="MINYAK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, minyak: x })} />
-                <MyInput2 label="TISU" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tisu: x })} />
-                <MyInput2 label="LUMPIA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lumpia: x })} />
-                <MyInput2 label="SEWA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
-                <MyInput2 label="LISTRIK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, listrik: x })} />
-                <MyInput2 label="ATK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, atk: x })} />
-                <MyInput2 label="GAS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gas: x })} />
-                <MyInput2 label="GAJI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
-                <MyInput2 label="LAINNYA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
+                <MyInput2 label="MODAL" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, modal: x })} />
+                <MyInput2 label="TUNAI QRIS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tunai_qris: x })} />
+                <MyInput2 label="TARIK TUNAI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tarik_tunai: x })} />
+                <MyInput2 label="DISKON RESELLER" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, diskon_reseller: x })} />
             </ScrollView>
 
             <MyGap jarak={20} />
