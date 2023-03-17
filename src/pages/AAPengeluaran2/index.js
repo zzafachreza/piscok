@@ -63,14 +63,14 @@ export default function AAPengeluaran2({ navigation, route }) {
 
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <MyInput2 keyboardType="number-pad" label="SEWA" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
-                <MyInput2 keyboardType="number-pad" label="DONASI" onChangeText={x => setKirim({ ...kirim, donasi: x })} />
-                <MyInput2 keyboardType="number-pad" label="IKLAN" onChangeText={x => setKirim({ ...kirim, iklan: x })} />
-                <MyInput2 keyboardType="number-pad" label="REWARD" onChangeText={x => setKirim({ ...kirim, reward: x })} />
-                <MyInput2 keyboardType="number-pad" label="PERALATAN" onChangeText={x => setKirim({ ...kirim, peralatan: x })} />
-                <MyInput2 keyboardType="number-pad" label="PERLENGKAPAN" onChangeText={x => setKirim({ ...kirim, perlengkapan: x })} />
-                <MyInput2 keyboardType="number-pad" label="GAJI" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
-                <MyInput2 keyboardType="number-pad" label="LAINNYA" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
+                <MyInput2 value={kirim.sewa} keyboardType="number-pad" label="SEWA" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
+                <MyInput2 value={kirim.donasi} keyboardType="number-pad" label="DONASI" onChangeText={x => setKirim({ ...kirim, donasi: x })} />
+                <MyInput2 value={kirim.iklan} keyboardType="number-pad" label="IKLAN" onChangeText={x => setKirim({ ...kirim, iklan: x })} />
+                <MyInput2 value={kirim.reward} keyboardType="number-pad" label="REWARD" onChangeText={x => setKirim({ ...kirim, reward: x })} />
+                <MyInput2 value={kirim.peralatan} keyboardType="number-pad" label="PERALATAN" onChangeText={x => setKirim({ ...kirim, peralatan: x })} />
+                <MyInput2 value={kirim.perlengkapan} keyboardType="number-pad" label="PERLENGKAPAN" onChangeText={x => setKirim({ ...kirim, perlengkapan: x })} />
+                <MyInput2 value={kirim.gaji} keyboardType="number-pad" label="GAJI" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
+                <MyInput2 value={kirim.lainnya} keyboardType="number-pad" label="LAINNYA" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
             </ScrollView>
 
             <MyGap jarak={20} />

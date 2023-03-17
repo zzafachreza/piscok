@@ -27,28 +27,11 @@ export default function AALaporan2({ navigation, route }) {
     // setLoading(false);
 
     const sendServer = () => {
-        console.log(kirim);
+        console.log('otw keungan', kirim);
 
         navigation.navigate('AALaporan3', kirim)
-
-        // axios.post(apiURL + 'laporan_add', kirim).then(res => {
-        //     setLoading(true);
-        //     console.log(res.data);
-        //     if (res.data.status == 200) {
-        //         // setLoading(false);
-        //         Alert.alert(MYAPP, 'Laporan tanggal' + moment(kirim.tanggal).format('DD/MM/YYYY') + ' berhasil di simpan !');
-        //         navigation.replace('Home');
-        //     }
-        // })
     }
 
-    const [region, setRegion] = useState([]);
-
-    useEffect(() => {
-
-
-
-    }, [])
 
     return (
         <SafeAreaView style={{
@@ -59,19 +42,21 @@ export default function AALaporan2({ navigation, route }) {
 
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <MyInput2 label="MINYAK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, minyak: x })} />
-                <MyInput2 label="TISU" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tisu: x })} />
-                <MyInput2 label="LUMPIA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lumpia: x })} />
-                <MyInput2 label="SEWA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
-                <MyInput2 label="LISTRIK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, listrik: x })} />
-                <MyInput2 label="ATK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, atk: x })} />
-                <MyInput2 label="GAS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gas: x })} />
-                <MyInput2 label="GAJI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
-                <MyInput2 label="LAINNYA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
+
+                <MyInput2 value={kirim.minyak} label="MINYAK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, minyak: x })} />
+                <MyInput2 value={kirim.tisu} label="TISU" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tisu: x })} />
+                <MyInput2 value={kirim.lumpia} label="LUMPIA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lumpia: x })} />
+                <MyInput2 value={kirim.sewa} label="SEWA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
+                <MyInput2 value={kirim.listrik} label="LISTRIK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, listrik: x })} />
+                <MyInput2 value={kirim.atk} label="ATK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, atk: x })} />
+                <MyInput2 value={kirim.gas} label="GAS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gas: x })} />
+                <MyInput2 value={kirim.gaji} label="GAJI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
+                <MyInput2 value={kirim.lainnya} label="LAINNYA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
+
             </ScrollView>
 
             <MyGap jarak={20} />
-            {!loading && <MyButton onPress={sendServer} title="KIRIM LAPORAN DAN CEK" warna={colors.primary} Icons="cloud-upload" />}
+            {!loading && <MyButton onPress={sendServer} title="KIRIM LAPORAN DAN LANJUT" warna={colors.primary} Icons="cloud-upload" />}
 
             {loading && <ActivityIndicator size="large" color={colors.primary} />
             }

@@ -17,60 +17,28 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
 import MyInput2 from '../../components/MyInput2';
 
-export default function AALaporan({ navigation, route }) {
+export default function AALaporanEdit({ navigation, route }) {
 
     const [loading, setLoading] = useState(false);
-    const [kirim, setKirim] = useState(
-        {
-            cabang: route.params.cabang,
-            tanggal: moment().format('YYYY-MM-DD'),
-            total_stock: 0,
-            ditarik: 0,
-            sisa_mentah: 0,
-            sisa_mateng: 0,
-            qris: 0,
-            grab_gojek: 0,
-            reseller: 0,
-            minyak: 0,
-            tisu: 0,
-            lumpia: 0,
-            sewa: 0,
-            listrik: 0,
-            atk: 0,
-            gas: 0,
-            gaji: 0,
-            lainnya: 0,
-            modal: 0,
-            tunai_qris: 0,
-            tarik_tunai: 0,
-            diskon_reseller: 0,
-        }
-    );
+    const [kirim, setKirim] = useState(route.params);
 
 
 
     // setLoading(false);
 
     const sendServer = () => {
-        console.log(kirim);
+        console.log('otw pengeluaran', kirim);
 
 
 
-        navigation.navigate('AALaporan2', kirim)
+        navigation.navigate('AALaporanReview', kirim)
 
         // setLoading(true);
 
 
     }
 
-    const [region, setRegion] = useState([]);
 
-    useEffect(() => {
-
-
-
-
-    }, [])
 
     return (
         <SafeAreaView style={{
@@ -118,9 +86,23 @@ export default function AALaporan({ navigation, route }) {
                 <MyInput2 value={kirim.grab_gojek} keyboardType="number-pad" label="GRAB GOJEK" onChangeText={x => setKirim({ ...kirim, grab_gojek: x })} />
                 <MyInput2 value={kirim.reseller} keyboardType="number-pad" label="RESELLER" onChangeText={x => setKirim({ ...kirim, reseller: x })} />
 
+                <MyInput2 value={kirim.minyak} label="MINYAK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, minyak: x })} />
+                <MyInput2 value={kirim.tisu} label="TISU" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tisu: x })} />
+                <MyInput2 value={kirim.lumpia} label="LUMPIA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lumpia: x })} />
+                <MyInput2 value={kirim.sewa} label="SEWA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
+                <MyInput2 value={kirim.listrik} label="LISTRIK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, listrik: x })} />
+                <MyInput2 value={kirim.atk} label="ATK" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, atk: x })} />
+                <MyInput2 value={kirim.gas} label="GAS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gas: x })} />
+                <MyInput2 value={kirim.gaji} label="GAJI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
+                <MyInput2 value={kirim.lainnya} label="LAINNYA" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
+
+
+                <MyInput2 value={kirim.modal} label="MODAL" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, modal: x })} />
+                <MyInput2 value={kirim.tunai_qris} label="TUNAI QRIS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tunai_qris: x })} />
+                <MyInput2 value={kirim.tarik_tunai} label="TARIK TUNAI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tarik_tunai: x })} />
+                <MyInput2 value={kirim.diskon_reseller} label="DISKON RESELLER" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, diskon_reseller: x })} />
 
             </ScrollView>
-
             <MyGap jarak={20} />
             {!loading && <MyButton onPress={sendServer} title="KIRIM LAPORAN DAN LANJUT" warna={colors.primary} Icons="cloud-upload" />}
 

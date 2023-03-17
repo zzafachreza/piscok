@@ -17,38 +17,19 @@ import DatePicker from 'react-native-datepicker'
 import moment from 'moment';
 import MyInput2 from '../../components/MyInput2';
 
-export default function AAPengeluaran({ navigation, route }) {
+export default function AAPengeluaranEdit({ navigation, route }) {
 
     const [loading, setLoading] = useState(false);
 
 
-    const [kirim, setKirim] = useState({
-        tanggal: moment().format('YYYY-MM-DD'),
-        minyak: 0,
-        cokelat: 0,
-        pisang: 0,
-        lumpia: 0,
-        mika: 0,
-        plastik: 0,
-        kotak: 0,
-        tissue: 0,
-        sewa: 0,
-        donasi: 0,
-        iklan: 0,
-        reward: 0,
-        peralatan: 0,
-        perlengkapan: 0,
-        gaji: 0,
-        lainnya: 0,
-        pembelian_total: 0,
-    });
+    const [kirim, setKirim] = useState(route.params);
 
     // setLoading(false);
 
     const sendServer = () => {
         console.log(kirim);
 
-        navigation.navigate('AAPengeluaran2', kirim)
+        navigation.navigate('AAPengeluaranReview', kirim)
 
         // setLoading(true);
 
@@ -105,6 +86,9 @@ export default function AAPengeluaran({ navigation, route }) {
                     }}
                     onDateChange={date => setKirim({ ...kirim, tanggal: date })}
                 />
+
+
+
                 <MyInput2 value={kirim.minyak} keyboardType="number-pad" label="MINYAK" onChangeText={x => setKirim({ ...kirim, minyak: x })} />
                 <MyInput2 value={kirim.cokelat} keyboardType="number-pad" label="COKELAT" onChangeText={x => setKirim({ ...kirim, cokelat: x })} />
                 <MyInput2 value={kirim.pisang} keyboardType="number-pad" label="PISANG" onChangeText={x => setKirim({ ...kirim, pisang: x })} />
@@ -113,7 +97,14 @@ export default function AAPengeluaran({ navigation, route }) {
                 <MyInput2 value={kirim.plastik} keyboardType="number-pad" label="PLASTIK" onChangeText={x => setKirim({ ...kirim, plastik: x })} />
                 <MyInput2 value={kirim.kotak} keyboardType="number-pad" label="KOTAK" onChangeText={x => setKirim({ ...kirim, kotak: x })} />
                 <MyInput2 value={kirim.tissue} keyboardType="number-pad" label="TISSUE" onChangeText={x => setKirim({ ...kirim, tissue: x })} />
-
+                <MyInput2 value={kirim.sewa} keyboardType="number-pad" label="SEWA" onChangeText={x => setKirim({ ...kirim, sewa: x })} />
+                <MyInput2 value={kirim.donasi} keyboardType="number-pad" label="DONASI" onChangeText={x => setKirim({ ...kirim, donasi: x })} />
+                <MyInput2 value={kirim.iklan} keyboardType="number-pad" label="IKLAN" onChangeText={x => setKirim({ ...kirim, iklan: x })} />
+                <MyInput2 value={kirim.reward} keyboardType="number-pad" label="REWARD" onChangeText={x => setKirim({ ...kirim, reward: x })} />
+                <MyInput2 value={kirim.peralatan} keyboardType="number-pad" label="PERALATAN" onChangeText={x => setKirim({ ...kirim, peralatan: x })} />
+                <MyInput2 value={kirim.perlengkapan} keyboardType="number-pad" label="PERLENGKAPAN" onChangeText={x => setKirim({ ...kirim, perlengkapan: x })} />
+                <MyInput2 value={kirim.gaji} keyboardType="number-pad" label="GAJI" onChangeText={x => setKirim({ ...kirim, gaji: x })} />
+                <MyInput2 value={kirim.lainnya} keyboardType="number-pad" label="LAINNYA" onChangeText={x => setKirim({ ...kirim, lainnya: x })} />
 
             </ScrollView>
 

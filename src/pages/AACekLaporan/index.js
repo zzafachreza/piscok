@@ -240,65 +240,69 @@ export default function AACekLaporan({ navigation, route }) {
                     <MyList judul l='MODAL' v={new Intl.NumberFormat().format(data.modal)} />
                     <MyList judul l='DISKON RESELLER' v={new Intl.NumberFormat().format(data.diskon_reseller)} />
                     <MyList judul l='SETORAN TUNAI' v={new Intl.NumberFormat().format(data.setoran_outlet)} />
-                </View>}
+
+                    <MyGap jarak={20} />
+
+                    <View style={{
+                        flexDirection: 'row'
+                    }}>
+                        <View style={{
+                            flex: 1,
+                        }}>
+                            <DatePicker
+                                style={{ width: '100%' }}
+                                date={ubah.tanggal}
+                                mode="date"
+                                placeholder="Silahkan pilih tanggal"
+                                format="YYYY-MM-DD"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                customStyles={{
+                                    dateIcon: {
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 4,
+                                        marginLeft: 0
+                                    },
+                                    dateInput: {
+                                        borderWidth: 1,
+                                        backgroundColor: colors.zavalabs,
+                                        borderColor: colors.primary,
+                                        borderRadius: 10,
+                                        color: colors.black,
+                                        fontSize: 12,
+                                        fontFamily: fonts.primary[400],
+                                        width: '100%'
+                                    }
+                                    // ... You can check the source to find the other keys.
+                                }}
+                                onDateChange={date => setUbah({ ...kirim, tanggal: date })}
+                            />
+                        </View>
+                        <View style={{
+                            flex: 1,
+                        }}>
+                            <TouchableOpacity onPress={sendUbah} style={{
+                                backgroundColor: colors.danger,
+                                height: 40,
+                                borderRadius: 10,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginLeft: 10,
+                            }}>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[600],
+                                    color: colors.white
+                                }}>UBAH TANGGAL</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+
+                }
             </ScrollView>
 
-            <MyGap jarak={20} />
 
-            <View style={{
-                flexDirection: 'row'
-            }}>
-                <View style={{
-                    flex: 1,
-                }}>
-                    <DatePicker
-                        style={{ width: '100%' }}
-                        date={ubah.tanggal}
-                        mode="date"
-                        placeholder="Silahkan pilih tanggal"
-                        format="YYYY-MM-DD"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                borderWidth: 1,
-                                backgroundColor: colors.zavalabs,
-                                borderColor: colors.primary,
-                                borderRadius: 10,
-                                color: colors.black,
-                                fontSize: 12,
-                                fontFamily: fonts.primary[400],
-                                width: '100%'
-                            }
-                            // ... You can check the source to find the other keys.
-                        }}
-                        onDateChange={date => setUbah({ ...kirim, tanggal: date })}
-                    />
-                </View>
-                <View style={{
-                    flex: 1,
-                }}>
-                    <TouchableOpacity onPress={sendUbah} style={{
-                        backgroundColor: colors.danger,
-                        height: 40,
-                        borderRadius: 10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginLeft: 10,
-                    }}>
-                        <Text style={{
-                            fontFamily: fonts.secondary[600],
-                            color: colors.white
-                        }}>UBAH TANGGAL</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
 
 
             {loading && <ActivityIndicator size="large" color={colors.primary} />

@@ -55,6 +55,8 @@ export default function AALaporanReview({ navigation, route }) {
 
 
     const [kirim, setKirim] = useState(route.params);
+
+
     const [add, setAdd] = useState({
         jumlah: parseFloat(route.params.total_stock) - (
             parseFloat(route.params.ditarik) +
@@ -76,6 +78,7 @@ export default function AALaporanReview({ navigation, route }) {
     useEffect(() => {
         setKirim({
             ...kirim,
+            edit: true,
             jumlah: parseFloat(route.params.total_stock) - (
                 parseFloat(route.params.ditarik) +
                 parseFloat(route.params.sisa_mentah) +
@@ -189,7 +192,10 @@ export default function AALaporanReview({ navigation, route }) {
                         flex: 1,
                         padding: 10,
                     }}>
-                        <MyButton onPress={() => navigation.navigate('AALaporan')} title="EDIT" warna={colors.primary} Icons="create-outline" />
+                        <MyButton onPress={() => {
+
+                            navigation.replace('AALaporanEdit', kirim)
+                        }} title="EDIT" warna={colors.primary} Icons="create-outline" />
                     </View>
                 </View>}
 

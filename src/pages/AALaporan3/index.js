@@ -24,6 +24,7 @@ export default function AALaporan3({ navigation, route }) {
 
     const [kirim, setKirim] = useState(route.params);
 
+    console.log('kirim dari pengeluaran', route.params)
     // setLoading(false);
 
     const sendServer = () => {
@@ -58,10 +59,10 @@ export default function AALaporan3({ navigation, route }) {
 
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <MyInput2 label="MODAL" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, modal: x })} />
-                <MyInput2 label="TUNAI QRIS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tunai_qris: x })} />
-                <MyInput2 label="TARIK TUNAI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tarik_tunai: x })} />
-                <MyInput2 label="DISKON RESELLER" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, diskon_reseller: x })} />
+                <MyInput2 value={kirim.modal} label="MODAL" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, modal: x })} />
+                <MyInput2 value={kirim.tunai_qris} label="TUNAI QRIS" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tunai_qris: x })} />
+                <MyInput2 value={kirim.tarik_tunai} label="TARIK TUNAI" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, tarik_tunai: x })} />
+                <MyInput2 value={kirim.diskon_reseller} label="DISKON RESELLER" keyboardType="number-pad" onChangeText={x => setKirim({ ...kirim, diskon_reseller: x })} />
             </ScrollView>
 
             <MyGap jarak={20} />

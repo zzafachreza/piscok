@@ -44,6 +44,8 @@ import AALaporanOutletPermintaan from './AALaporanOutletPermintaan';
 import AALaporanKeuangan from './AALaporanKeuangan';
 import AALaporanKeuanganHeader from './AALaporanKeuanganHeader';
 import AALaporanKeuanganDetail from './AALaporanKeuanganDetail';
+import AALaporanEdit from './AALaporanEdit';
+import AAPengeluaranEdit from './AAPengeluaranEdit';
 
 
 // NEW
@@ -82,7 +84,7 @@ export {
   TimMulai,
   TimHasil,
 
-
+  AALaporanEdit,
   Account,
   Riwayat,
   AccountEdit,
@@ -100,7 +102,7 @@ export {
   AAPermintaan,
   AACekLaporan,
   AAPermintaanCek,
-
+  AAPengeluaranEdit,
 
   AAPengeluaran,
   AAPengeluaran2,

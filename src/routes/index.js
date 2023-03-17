@@ -48,6 +48,8 @@ import {
   AALaporanKeuanganHeader,
   AALaporanKeuanganDetail,
   AALaporan3,
+  AALaporanEdit,
+  AAPengeluaranEdit,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -136,6 +138,32 @@ export default function Router() {
         options={{
           headerShown: true,
           headerTitle: 'KEUANGAN',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AALaporanEdit"
+        component={AALaporanEdit}
+        options={{
+          headerShown: true,
+          headerTitle: 'LAPORAN EDIT',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="AAPengeluaranEdit"
+        component={AAPengeluaranEdit}
+        options={{
+          headerShown: true,
+          headerTitle: 'PENGELUARAN EDIT',
           headerStyle: {
             backgroundColor: colors.primary,
           },

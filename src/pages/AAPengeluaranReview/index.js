@@ -162,7 +162,7 @@ export default function AAPengeluaranReview({ navigation, route }) {
                         flex: 1,
                         padding: 10,
                     }}>
-                        <MyButton onPress={() => navigation.navigate('AAPengeluaran')} title="EDIT" warna={colors.primary} Icons="create-outline" />
+                        <MyButton onPress={() => navigation.replace('AAPengeluaranEdit', kirim)} title="EDIT" warna={colors.primary} Icons="create-outline" />
                     </View>
                 </View>}
 
