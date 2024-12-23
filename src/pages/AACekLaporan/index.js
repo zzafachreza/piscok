@@ -57,12 +57,12 @@ export default function AACekLaporan({ navigation, route }) {
 
     const [ubah, setUbah] = useState({
         cabang: route.params.cabang,
-        tanggal: moment().format('YYYY-MM-DD'),
+        tanggal: route.params.tanggal === "undefined" ? moment().format('YYYY-MM-DD') : route.params.tanggal,
     })
 
     const [kirim, setKirim] = useState({
         cabang: route.params.cabang,
-        tanggal: moment().format('YYYY-MM-DD'),
+        tanggal: route.params.tanggal === "undefined" ? moment().format('YYYY-MM-DD') : route.params.tanggal,
     });
 
     // setLoading(false);
@@ -97,6 +97,23 @@ export default function AACekLaporan({ navigation, route }) {
                 }
             ])
     }
+
+    useEffect(() => {
+        if (route.params.tanggal !== "undefined") {
+            axios.post(apiURL + 'laporan_cek', kirim).then(res => {
+                console.log(res.data);
+                if (res.data.data == null) {
+                    setLoading(false);
+                    setOpen(false);
+                    Alert.alert(MYAPP, 'Tidak ada laporan di tanggal ' + moment(kirim.tanggal).format('DD/MMM/YYYY'))
+                } else {
+                    setLoading(false);
+                    setOpen(true);
+                    setData(res.data.data);
+                }
+            })
+        }
+    }, [])
 
     const sendServer = () => {
         console.log(kirim);

@@ -208,7 +208,19 @@ export default function AALaporanOutletPenjualan({ navigation, route }) {
                                 <Text style={styles.isi}>{item.qris}</Text>
                                 <Text style={styles.isi}>{item.grab_gojek}</Text>
                                 <Text style={styles.isi}>{item.reseller}</Text>
-                                <Text style={styles.isi}>{new Intl.NumberFormat().format(item.pembelian_outlet)}</Text>
+                                <Text style={styles.isi}>{new Intl.NumberFormat().format(item.pembelian_outlet)}{'\n'}
+                                    <TouchableOpacity onPress={() => {
+                                        console.log(item);
+                                        navigation.navigate('AACekLaporan', {
+                                            cabang: item.cabang,
+                                            tanggal: kirim.tanggal
+                                        })
+                                    }}>
+                                        <Icon type='ionicon' name='eye' size={15} />
+                                    </TouchableOpacity>
+
+                                </Text>
+
                             </View>
                         )
                     })}

@@ -106,33 +106,10 @@ export default function Home({ navigation }) {
 
 
   }, [isFocused]);
-  const [data, setData] = useState([]);
+
   const __getTransaction = () => {
     getData('user').then(res => {
       setUser(res);
-
-
-      axios.post(apiURL + 'riwayat_sales', {
-        fid_sales: res.id_user
-      }).then(res => {
-        console.log(res.data);
-        setData(res.data);
-      })
-
-
-      axios.post(apiURL + 'saldo', {
-        fid_user: res.id
-      }).then(dd => {
-        console.log(dd.data);
-        setMutasi(dd.data);
-
-      })
-
-    })
-
-    axios.post(apiURL + 'slider').then(res => {
-      console.log(res.data)
-      SETENTITIES(res.data);
     })
 
   }
