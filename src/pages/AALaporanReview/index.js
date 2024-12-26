@@ -84,10 +84,10 @@ export default function AALaporanReview({ navigation, route }) {
                 parseFloat(route.params.sisa_mentah) +
                 parseFloat(route.params.sisa_mateng)),
             penjualan_kotor: add.jumlah * 4000,
-            penjualan_nontunai: ((kirim.qris * 4000) + (kirim.grab_gojek * 4000) + (kirim.reseller * 3000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris),
-            penjualan_tunai: (add.jumlah * 4000) - (((kirim.qris * 4000) + (kirim.grab_gojek * 4000) + (kirim.reseller * 3000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris)) - add.total_beli,
+            penjualan_nontunai: ((kirim.qris * 4000) + (kirim.grab_gojek * 4000) + (kirim.reseller * 4000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris),
+            penjualan_tunai: (add.jumlah * 4000) - (((kirim.qris * 4000) + (kirim.grab_gojek * 4000) + (kirim.reseller * 4000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris)) - add.total_beli,
             pembelian_outlet: add.total_beli,
-            setoran_outlet: ((add.jumlah * 4000) - (((kirim.qris * 4000) + (kirim.grab_gojek * 4000) + (kirim.reseller * 3000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris)) - add.total_beli) + parseFloat(kirim.modal) + parseFloat(kirim.diskon_reseller)
+            setoran_outlet: ((add.jumlah * 4000) - (((kirim.qris * 4000) + (kirim.grab_gojek * 4000) + (kirim.reseller * 4000) + parseFloat(kirim.tarik_tunai)) - parseFloat(kirim.tunai_qris)) - add.total_beli) + parseFloat(kirim.modal) + parseFloat(kirim.diskon_reseller)
         });
     }, [])
 
@@ -147,7 +147,7 @@ export default function AALaporanReview({ navigation, route }) {
                 <MyList l='QRIS x 4,000' v={new Intl.NumberFormat().format(kirim.qris * 4000)} />
                 <MyList l='TUNAI QRIS' v={`( ${new Intl.NumberFormat().format(kirim.tunai_qris)} )`} />
                 <MyList l='GRAB GOJEK x 4,000' v={new Intl.NumberFormat().format(kirim.grab_gojek * 4000)} />
-                <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(kirim.reseller * 3000)} />
+                <MyList l='RESELLER x 4,000' v={new Intl.NumberFormat().format(kirim.reseller * 4000)} />
                 <MyList l='TARIK TUNAI' v={new Intl.NumberFormat().format(kirim.tarik_tunai)} />
                 <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(kirim.penjualan_nontunai)} />
 

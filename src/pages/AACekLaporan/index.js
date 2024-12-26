@@ -57,12 +57,12 @@ export default function AACekLaporan({ navigation, route }) {
 
     const [ubah, setUbah] = useState({
         cabang: route.params.cabang,
-        tanggal: route.params.tanggal === "undefined" ? moment().format('YYYY-MM-DD') : route.params.tanggal,
+        tanggal: typeof route.params.tanggal === "undefined" ? moment().format('YYYY-MM-DD') : route.params.tanggal,
     })
 
     const [kirim, setKirim] = useState({
         cabang: route.params.cabang,
-        tanggal: route.params.tanggal === "undefined" ? moment().format('YYYY-MM-DD') : route.params.tanggal,
+        tanggal: typeof route.params.tanggal === "undefined" ? moment().format('YYYY-MM-DD') : route.params.tanggal,
     });
 
     // setLoading(false);
@@ -99,7 +99,8 @@ export default function AACekLaporan({ navigation, route }) {
     }
 
     useEffect(() => {
-        if (route.params.tanggal !== "undefined") {
+        console.log(route.params.tanggal)
+        if (typeof route.params.tanggal !== "undefined") {
             axios.post(apiURL + 'laporan_cek', kirim).then(res => {
                 console.log(res.data);
                 if (res.data.data == null) {
@@ -234,10 +235,10 @@ export default function AACekLaporan({ navigation, route }) {
                     <MyList l='PENJUALAN KOTOR' judul v={new Intl.NumberFormat().format(data.penjualan_kotor)} />
 
                     <MyGap jarak={20} />
-                    <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(data.qris * 3500)} />
+                    <MyList l='QRIS x 4,000' v={new Intl.NumberFormat().format(data.qris * 4000)} />
                     <MyList l='TUNAI QRIS' v={`( ${new Intl.NumberFormat().format(data.tunai_qris)} )`} />
-                    <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(data.grab_gojek * 3500)} />
-                    <MyList l='RESELLER x 3,000' v={new Intl.NumberFormat().format(data.reseller * 3000)} />
+                    <MyList l='GRAB GOJEK x 4,000' v={new Intl.NumberFormat().format(data.grab_gojek * 4000)} />
+                    <MyList l='RESELLER x 4,000' v={new Intl.NumberFormat().format(data.reseller * 4000)} />
                     <MyList l='TARIK TUNAI' v={new Intl.NumberFormat().format(data.tarik_tunai)} />
                     <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(data.penjualan_nontunai)} />
 
