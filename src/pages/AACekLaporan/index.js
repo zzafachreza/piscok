@@ -235,10 +235,10 @@ export default function AACekLaporan({ navigation, route }) {
                     <MyList l='PENJUALAN KOTOR' judul v={new Intl.NumberFormat().format(data.penjualan_kotor)} />
 
                     <MyGap jarak={20} />
-                    <MyList l='QRIS x 4,000' v={new Intl.NumberFormat().format(data.qris * 4000)} />
+                    <MyList l='QRIS x 3,500' v={new Intl.NumberFormat().format(data.qris * 3500)} />
                     <MyList l='TUNAI QRIS' v={`( ${new Intl.NumberFormat().format(data.tunai_qris)} )`} />
-                    <MyList l='GRAB GOJEK x 4,000' v={new Intl.NumberFormat().format(data.grab_gojek * 4000)} />
-                    <MyList l='RESELLER x 4,000' v={new Intl.NumberFormat().format(data.reseller * 4000)} />
+                    <MyList l='GRAB GOJEK x 3,500' v={new Intl.NumberFormat().format(data.grab_gojek * 3500)} />
+                    <MyList l='RESELLER x 3,500' v={new Intl.NumberFormat().format(data.reseller * 3500)} />
                     <MyList l='TARIK TUNAI' v={new Intl.NumberFormat().format(data.tarik_tunai)} />
                     <MyList judul l='PENJUALAN NONTUNAI' v={new Intl.NumberFormat().format(data.penjualan_nontunai)} />
 
